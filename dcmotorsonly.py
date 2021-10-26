@@ -10,9 +10,14 @@ import numpy as np
 #hardware work
 GPIO.setmode(GPIO.BCM)
 
+
+#OUT3 to GPIO25
+#OUT4 to GPIO8
 MOTOR1B=25  #Left Motor
 MOTOR1E=8
 
+#OUT1 to GPIO23
+#OUT2 to GPIO15
 MOTOR2B=23  #Right Motor
 MOTOR2E=15
 
@@ -57,12 +62,17 @@ def stop():
       GPIO.output(MOTOR2E,GPIO.LOW)
       GPIO.output(MOTOR2B,GPIO.LOW)
 
+print("Moving Forward")
 forward()
 time.sleep(2)
+print("Moving Backwards")
 reverse()
 time.sleep(2)
+print("Moving Right")
 rightturn()
 time.sleep(2)
+print("Moving Left")
 leftturn()
 time.sleep(2)
+print("Stop")
 stop()
