@@ -25,6 +25,8 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 	B = cv2.getTrackbarPos("B", "Trackbars")
 	G = cv2.getTrackbarPos("G", "Trackbars")
 	R = cv2.getTrackbarPos("R", "Trackbars")
+	
+	result[:] = [B, G, R]
 
 	green = np.uint8([[[B, G, R]]])
 	hsvGreen = cv2.cvtColor(green,cv2.COLOR_BGR2HSV)
