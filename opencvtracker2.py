@@ -6,6 +6,9 @@ from picamera import PiCamera
 def nothing(x):
     pass
  
+
+result = np.zeros((300,512,3), np.uint8)
+
 cv2.namedWindow("Trackbars")
  
 cv2.createTrackbar("B", "Trackbars", 0, 255, nothing)
