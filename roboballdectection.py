@@ -35,8 +35,8 @@ while True:
     
     #RoboMaster Balls 
     # OpenCV HSV Range, H (0-179), S (0-255), V (0-255)
-    low_robo = np.array([19,85,51])
-    high_robo = np.array([74,162,255])
+    low_robo = np.array([45,47,169])
+    high_robo = np.array([90,255,255])
     robo_mask = cv2.inRange(hsv_frame,low_robo,high_robo) # only the robo balls will be white
     robo = cv2.bitwise_and(frame, frame, mask=robo_mask) #only the robo in color will be seen
                       
@@ -49,3 +49,7 @@ while True:
     key = cv2.waitKey(1)
     if key == 27:
         break
+
+        
+#RoboBallsColor tracker        
+#Low[45,47,169], High[90,255,255]
