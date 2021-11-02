@@ -103,8 +103,8 @@ def find_blob(blob): #returns the robo green colored circle
       r=(0,0,2,2)
       if len(contours) > 0:
             r = cv2.boundingRect(contours[cont_index])
+      
       print("r is : " , r, "largest contour is : " , largest_contour)
-
       return r,largest_contour
 
 def target_hist(frame):
