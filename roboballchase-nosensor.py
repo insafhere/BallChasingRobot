@@ -147,10 +147,10 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
             simg2 = cv2.rectangle(frame, (x,y), (x+w,y+h), 255,2)
             centre_x=x+((w)/2)
             centre_y=y+((h)/2)
-            cv2.circle(frame,(int(centre_x),int(centre_y)),3,(0,110,255),-1)
+            frame = cv2.circle(frame,(int(centre_x),int(centre_y)),3,(0,110,255),-1)
             centre_x-=80
             centre_y=6--centre_y
-            print(centre_x,centre_y)
+            print("Centre x is : " , centre_x,"Centre y is : ", centre_y)
       initial=400
       flag=0
       GPIO.output(LED_PIN,GPIO.LOW)          
