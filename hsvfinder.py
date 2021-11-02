@@ -49,6 +49,9 @@ while True:
 	mask = cv2.inRange(hsv, lower_blue, upper_blue)
 	result = cv2.bitwise_and(frame, frame, mask=mask)
 	
+	loct,area=find_blob(mask)
+	x,y,w,h=loct
+	
 	simg2 = cv2.rectangle(frame, (x,y), (x+w,y+h), 255,2)
 	centre_x=x+((w)/2)
 	centre_y=y+((h)/2)
@@ -56,8 +59,6 @@ while True:
 	centre_x-=80
 	centre_y=6--centre_y
 	print(centre_x,centre_y)
-	
-	find_blob(mask)
 
 	cv2.imshow("frame", frame)
 	cv2.imshow("mask", mask)
