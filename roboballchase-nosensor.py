@@ -1,4 +1,5 @@
 #Learn more about HSV, YCR here - https://learnopencv.com/color-spaces-in-opencv-cpp-python/
+#Learn more about eroding and dilating - https://docs.opencv.org/3.4.15/db/df6/tutorial_erosion_dilatation.html
 
 # import the necessary packages
 from picamera.array import PiRGBArray     #As there is a resolution problem in raspberry pi, will not be able to capture frames by VideoCapture
@@ -90,7 +91,7 @@ def segment_colour(frame):    #returns only the red colors in the frame
       #cv2.imshow('mask2',mask_2)
       return mask_1
 
-def find_blob(blob): #returns the red colored circle
+def find_blob(blob): #returns the robo green colored circle
     largest_contour=0
     cont_index=0
     _, contours, _ = cv2.findContours(blob, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
@@ -98,11 +99,7 @@ def find_blob(blob): #returns the red colored circle
         area=cv2.contourArea(contour)
         if (area >largest_contour) :
             largest_contour=area
-           
-            cont_index=idx
-            #if res>15 and res<18:
-            #    cont_index=idx
-                              
+            cont_index=idx                   
     r=(0,0,2,2)
     if len(contours) > 0:
         r = cv2.boundingRect(contours[cont_index])
@@ -136,8 +133,8 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
       centre_x=0.
       centre_y=0.
       hsv1 = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-      mask_red=segment_colour(frame)      #masking red the frame
-      loct,area=find_blob(mask_red)
+      mask_roboball=segment_colour(frame)      #masking red the frame
+      loct,area=find_blob(mask_roboball)
       x,y,w,h=loct
              
       if (w*h) < 10:
@@ -145,7 +142,7 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
             print("nothingfound")
       else:
             found=1
-            print("Found red!")
+            print("Found robo ball!")
             simg2 = cv2.rectangle(frame, (x,y), (x+w,y+h), 255,2)
             centre_x=x+((w)/2)
             centre_y=y+((h)/2)
