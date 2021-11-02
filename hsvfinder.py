@@ -16,14 +16,14 @@ cv2.createTrackbar("U - V", "Trackbars", 255, 255, nothing)
 
 while True:
 	_, frame = cap.read()
-    	hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-    
-    	l_h = cv2.getTrackbarPos("L - H", "Trackbars")
-    	l_s = cv2.getTrackbarPos("L - S", "Trackbars")
+	hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+	
+	l_h = cv2.getTrackbarPos("L - H", "Trackbars")
+	l_s = cv2.getTrackbarPos("L - S", "Trackbars")
    	l_v = cv2.getTrackbarPos("L - V", "Trackbars")
 	u_h = cv2.getTrackbarPos("U - H", "Trackbars")
    	u_s = cv2.getTrackbarPos("U - S", "Trackbars")
-    	u_v = cv2.getTrackbarPos("U - V", "Trackbars")
+	u_v = cv2.getTrackbarPos("U - V", "Trackbars")
     
 	lower_blue = np.array([l_h, l_s, l_v])
 	upper_blue = np.array([u_h, u_s, u_v])
