@@ -92,19 +92,20 @@ def segment_colour(frame):    #returns only the red colors in the frame
       return mask_1
 
 def find_blob(blob): #returns the robo green colored circle
-    largest_contour=0
-    cont_index=0
-    _, contours, _ = cv2.findContours(blob, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    for idx, contour in enumerate(contours):
-        area=cv2.contourArea(contour)
-        if (area >largest_contour) :
-            largest_contour=area
-            cont_index=idx                   
-    r=(0,0,2,2)
-    if len(contours) > 0:
-        r = cv2.boundingRect(contours[cont_index])
-    print("r is " + r + ", largest countour is: " + largest contour)
-    return r,largest_contour
+      largest_contour=0
+      cont_index=0
+      _, contours, _ = cv2.findContours(blob, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+      for idx, contour in enumerate(contours):
+            area=cv2.contourArea(contour)
+            if (area >largest_contour) :
+                  largest_contour=area
+                  cont_index=idx                   
+      r=(0,0,2,2)
+      if len(contours) > 0:
+            r = cv2.boundingRect(contours[cont_index])
+      print("r is : " , r, "largest contour is : " , largest_contour)
+
+      return r,largest_contour
 
 def target_hist(frame):
     hsv_img=cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
