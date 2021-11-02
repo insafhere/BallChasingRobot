@@ -37,7 +37,7 @@ while True:
     # color picker range, H (0-359), S (0-100), V (0-100)
     # OpenCV HSV Range, H (0-179), S (0-255), V (0-255)
     low_robo = np.array([35,76,153]) #colorpicker : 70, 30, 60
-    high_robo = np.array([73,179,255)] #colorpicker : 145, 70, 100
+    high_robo = np.array([73,179,255]) #colorpicker : 145, 70, 100
     robo_mask = cv2.inRange(hsv_frame,low_robo,high_robo) # only the robo balls will be white
     robo = cv2.bitwise_and(frame, frame, mask=robo_mask) #only the robo in color will be seen
                       
