@@ -1,3 +1,5 @@
+#Learn more about HSV, YCR here - https://learnopencv.com/color-spaces-in-opencv-cpp-python/
+
 # import the necessary packages
 from picamera.array import PiRGBArray     #As there is a resolution problem in raspberry pi, will not be able to capture frames by VideoCapture
 from picamera import PiCamera
@@ -73,19 +75,19 @@ def stop():
 #Image analysis work
 def segment_colour(frame):    #returns only the red colors in the frame
       hsv_roi =  cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-      mask_1 = cv2.inRange(hsv_roi, np.array([45,47,169]), np.array([90,255,255]))
-      ycr_roi=cv2.cvtColor(frame,cv2.COLOR_BGR2YCrCb)
-      mask_2=cv2.inRange(ycr_roi, np.array((0.,165.,0.)), np.array((255.,255.,255.)))
+      mask = cv2.inRange(hsv_roi, np.array([45,47,169]), np.array([90,255,255]))
+      #ycr_roi=cv2.cvtColor(frame,cv2.COLOR_BGR2YCrCb)
+      #mask_2=cv2.inRange(ycr_roi, np.array((0.,165.,0.)), np.array((255.,255.,255.)))
 
-      mask = mask_1 | mask_2
+      #mask = mask_1 | mask_2
       kern_dilate = np.ones((8,8),np.uint8)
       kern_erode  = np.ones((3,3),np.uint8)
       mask= cv2.erode(mask,kern_erode)      #Eroding
       mask=cv2.dilate(mask,kern_dilate)     #Dilating
 
-      cv2.imshow('mask',mask)
-      cv2.imshow('mask1',mask_1)
-      cv2.imshow('mask2',mask_2)
+      #cv2.imshow('mask',mask)
+      cv2.imshow('mask1',mask)
+      #cv2.imshow('mask2',mask_2)
       return mask
 
 def find_blob(blob): #returns the red colored circle
@@ -116,9 +118,9 @@ def target_hist(frame):
 #CAMERA CAPTURE
 #initialize the camera and grab a reference to the raw camera capture
 camera = PiCamera()
-camera.resolution = (160, 120)
+camera.resolution = (320, 240)
 camera.framerate = 16
-rawCapture = PiRGBArray(camera, size=(160, 120))
+rawCapture = PiRGBArray(camera, size=(320, 240))
  
 # allow the camera to warmup
 time.sleep(0.001)
