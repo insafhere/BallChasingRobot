@@ -33,5 +33,5 @@ while True:
     cv2.imshow("result", result)
     
     key = cv2.waitKey(1)
-	  if key == 27:
-      break
+    if key == 27:
+	break
