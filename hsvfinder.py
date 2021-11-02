@@ -20,9 +20,9 @@ while True:
 	
 	l_h = cv2.getTrackbarPos("L - H", "Trackbars")
 	l_s = cv2.getTrackbarPos("L - S", "Trackbars")
-   	l_v = cv2.getTrackbarPos("L - V", "Trackbars")
+	l_v = cv2.getTrackbarPos("L - V", "Trackbars")
 	u_h = cv2.getTrackbarPos("U - H", "Trackbars")
-   	u_s = cv2.getTrackbarPos("U - S", "Trackbars")
+	u_s = cv2.getTrackbarPos("U - S", "Trackbars")
 	u_v = cv2.getTrackbarPos("U - V", "Trackbars")
     
 	lower_blue = np.array([l_h, l_s, l_v])
