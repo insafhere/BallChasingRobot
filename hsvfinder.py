@@ -14,6 +14,23 @@ cv2.createTrackbar("U - H", "Trackbars", 179, 179, nothing)
 cv2.createTrackbar("U - S", "Trackbars", 255, 255, nothing)
 cv2.createTrackbar("U - V", "Trackbars", 255, 255, nothing)
 
+
+def find_blob(blob): #returns the robo green colored circle
+      largest_contour=0
+      cont_index=0
+      _, contours, _ = cv2.findContours(blob, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+      for idx, contour in enumerate(contours):
+            area=cv2.contourArea(contour)
+            if (area >largest_contour) :
+                  largest_contour=area
+                  cont_index=idx                   
+      r=(0,0,2,2)
+      if len(contours) > 0:
+            r = cv2.boundingRect(contours[cont_index])
+      
+      print("r is : " , r, "largest contour is : " , largest_contour)
+      return r,largest_contour
+
 while True:
 	_, frame = cap.read()
 	frame=cv2.flip(frame,-1)
@@ -28,9 +45,11 @@ while True:
     
 	lower_blue = np.array([l_h, l_s, l_v])
 	upper_blue = np.array([u_h, u_s, u_v])
+	
 	mask = cv2.inRange(hsv, lower_blue, upper_blue)
-
 	result = cv2.bitwise_and(frame, frame, mask=mask)
+	
+	find_blob(mask)
 
 	cv2.imshow("frame", frame)
 	cv2.imshow("mask", mask)
