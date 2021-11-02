@@ -75,20 +75,20 @@ def stop():
 #Image analysis work
 def segment_colour(frame):    #returns only the red colors in the frame
       hsv_roi =  cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-      mask = cv2.inRange(hsv_roi, np.array([45,47,169]), np.array([90,255,255]))
+      mask_1 = cv2.inRange(hsv_roi, np.array([45,47,169]), np.array([90,255,255]))
       #ycr_roi=cv2.cvtColor(frame,cv2.COLOR_BGR2YCrCb)
       #mask_2=cv2.inRange(ycr_roi, np.array((0.,165.,0.)), np.array((255.,255.,255.)))
 
       #mask = mask_1 | mask_2
       kern_dilate = np.ones((8,8),np.uint8)
       kern_erode  = np.ones((3,3),np.uint8)
-      mask= cv2.erode(mask,kern_erode)      #Eroding
-      mask=cv2.dilate(mask,kern_dilate)     #Dilating
+      mask_1= cv2.erode(mask_1,kern_erode)      #Eroding
+      mask_1=cv2.dilate(mask_1,kern_dilate)     #Dilating
 
       #cv2.imshow('mask',mask)
-      cv2.imshow('mask1',mask)
+      cv2.imshow('mask1',mask_1)
       #cv2.imshow('mask2',mask_2)
-      return mask
+      return mask_1
 
 def find_blob(blob): #returns the red colored circle
     largest_contour=0
