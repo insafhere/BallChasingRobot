@@ -3,7 +3,6 @@ from picamera.array import PiRGBArray     #As there is a resolution problem in r
 from picamera import PiCamera
 import RPi.GPIO as GPIO
 import time
-import cv2
 
 import numpy as np
 
