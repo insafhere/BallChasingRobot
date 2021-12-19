@@ -191,7 +191,10 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
       
       
       if(found==0):
-            rightturn()
+            if(distanceC>10):
+                  rightturn()
+            else:
+                  forward()
       elif(found==1):
             if(area<initial):  #if area is small than 400
                   if(distanceC<10):
