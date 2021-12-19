@@ -118,7 +118,6 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 	loct,area=find_blob(mask)
 	x,y,w,h=loct
 	
-	
 	simg2 = cv2.rectangle(frame, (x,y), (x+w,y+h), 255,2)
 	centre_x=x+((w)/2)
 	centre_y=y+((h)/2)
@@ -126,11 +125,6 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 	centre_x = 80 - centre_x
 	centre_y= 60 - centre_y
 	print("Centre x is : " , centre_x,"Centre y is : ", centre_y)
-
-	cv2.imshow("frame", frame)
-	
-	cv2.imshow("mask", mask)
-	cv2.imshow("result", result)
      
 	#cv2.imshow("draw",frame)    
 	rawCapture.truncate(0)  # clear the stream in preparation for the next frame
