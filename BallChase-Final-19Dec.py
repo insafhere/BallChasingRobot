@@ -190,10 +190,16 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
       GPIO.output(LED_PIN,GPIO.LOW)          
       if(found==0):
-            rightturn()
-            time.sleep(0.05)
-            stop()
-            time.sleep(0.0125)
+            if(distanceC<20):
+                  rightturn()
+                  time.sleep(0.05)
+                  stop()
+                  time.sleep(0.0125)
+            else:
+                  #otherwise it move forward
+                  forward()
+                  time.sleep(0.00625)
+
      
       elif(found==1):
             if(area<initial):  #if area is small than 400
