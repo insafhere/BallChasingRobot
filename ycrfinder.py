@@ -7,12 +7,12 @@ def nothing(x):
 cap = cv2.VideoCapture(0)
 cv2.namedWindow("Trackbars")
 
-cv2.createTrackbar("L - H", "Trackbars", 0, 179, nothing)
-cv2.createTrackbar("L - S", "Trackbars", 0, 255, nothing)
-cv2.createTrackbar("L - V", "Trackbars", 0, 255, nothing)
-cv2.createTrackbar("U - H", "Trackbars", 179, 179, nothing)
-cv2.createTrackbar("U - S", "Trackbars", 255, 255, nothing)
-cv2.createTrackbar("U - V", "Trackbars", 255, 255, nothing)
+cv2.createTrackbar("L - Y", "Trackbars", 0, 179, nothing)
+cv2.createTrackbar("L - C", "Trackbars", 0, 255, nothing)
+cv2.createTrackbar("L - R", "Trackbars", 0, 255, nothing)
+cv2.createTrackbar("U - Y", "Trackbars", 179, 179, nothing)
+cv2.createTrackbar("U - C", "Trackbars", 255, 255, nothing)
+cv2.createTrackbar("U - R", "Trackbars", 255, 255, nothing)
 
 
 def find_blob(blob): #returns the robo green colored circle
@@ -34,19 +34,19 @@ def find_blob(blob): #returns the robo green colored circle
 while True:
 	_, frame = cap.read()
 	frame=cv2.flip(frame,-1)
-	hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2YCrCb)
+	ycr = cv2.cvtColor(frame, cv2.COLOR_BGR2YCrCb)
 	
-	l_h = cv2.getTrackbarPos("L - H", "Trackbars")
-	l_s = cv2.getTrackbarPos("L - S", "Trackbars")
-	l_v = cv2.getTrackbarPos("L - V", "Trackbars")
-	u_h = cv2.getTrackbarPos("U - H", "Trackbars")
-	u_s = cv2.getTrackbarPos("U - S", "Trackbars")
-	u_v = cv2.getTrackbarPos("U - V", "Trackbars")
+	l_y = cv2.getTrackbarPos("L - Y", "Trackbars")
+	l_c = cv2.getTrackbarPos("L - C", "Trackbars")
+	l_r = cv2.getTrackbarPos("L - R", "Trackbars")
+	u_y = cv2.getTrackbarPos("U - Y", "Trackbars")
+	u_c = cv2.getTrackbarPos("U - C", "Trackbars")
+	u_r = cv2.getTrackbarPos("U - R", "Trackbars")
     
-	lower_blue = np.array([l_h, l_s, l_v])
-	upper_blue = np.array([u_h, u_s, u_v])
+	lower = np.array([l_y, l_c, l_r])
+	upper = np.array([u_y, u_c, u_r])
 	
-	mask = cv2.inRange(hsv, lower_blue, upper_blue)
+	mask = cv2.inRange(ycr, lower, upper)
 	result = cv2.bitwise_and(frame, frame, mask=mask)
 	
 	loct,area=find_blob(mask)
