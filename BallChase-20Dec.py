@@ -36,9 +36,8 @@ p.start(100)
 p1.start(100)
 
 # Set trigger to False (Low)
-GPIO.output(GPIO_TRIGGER1, False)
 GPIO.output(GPIO_TRIGGER2, False)
-GPIO.output(GPIO_TRIGGER3, False)
+
 
 # Allow module to settle
 def sonar(GPIO_TRIGGER,GPIO_ECHO):
