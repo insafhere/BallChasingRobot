@@ -186,7 +186,7 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
             print(centre_x,centre_y)
             print("Area : %.1f" % area)
             GPIO.output(LED_PIN,GPIO.HIGH)
-      initial=400
+      initial=80
 
       GPIO.output(LED_PIN,GPIO.LOW)          
       if(found==0):
