@@ -11,14 +11,14 @@ def nothing(x):
 cv2.namedWindow("HSV Trackbar")
 cv2.namedWindow("YCR Trackbar")
 
-cv2.createTrackbar("L - H", "HSV Trackbar", 0, 255, nothing)
+cv2.createTrackbar("L - H", "HSV Trackbar", 0, 179, nothing)
 cv2.createTrackbar("L - S", "HSV Trackbar", 0, 255, nothing)
 cv2.createTrackbar("L - V", "HSV Trackbar", 0, 255, nothing)
 cv2.createTrackbar("U - H", "HSV Trackbar", 179, 179, nothing)
 cv2.createTrackbar("U - S", "HSV Trackbar", 255, 255, nothing)
 cv2.createTrackbar("U - V", "HSV Trackbar", 255, 255, nothing)
 
-cv2.createTrackbar("L - Y", "YCR Trackbar", 0, 255, nothing)
+cv2.createTrackbar("L - Y", "YCR Trackbar", 0, 179, nothing)
 cv2.createTrackbar("L - C", "YCR Trackbar", 0, 255, nothing)
 cv2.createTrackbar("L - R", "YCR Trackbar", 0, 255, nothing)
 cv2.createTrackbar("U - Y", "YCR Trackbar", 179, 179, nothing)
