@@ -5,7 +5,7 @@ def nothing(x):
     pass
 
 cap = cv2.VideoCapture(0)
-cv2.namedWindow("YCR Trackbars")
+cv2.namedWindow("Trackbars")
 
 cv2.createTrackbar("L - Y", "Trackbars", 0, 179, nothing)
 cv2.createTrackbar("L - C", "Trackbars", 0, 255, nothing)
