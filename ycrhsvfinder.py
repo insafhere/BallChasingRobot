@@ -94,7 +94,7 @@ while True:
 	cv2.imshow("frame", frame)
 
 	cv2.imshow("ycr mask", ycr_mask)
-	cv2.imshow("hsv result", ycr_result)
+	cv2.imshow("ycr result", ycr_result)
 
 	cv2.imshow("hsv mask", hsv_mask)
 	cv2.imshow("hsv result", hsv_result)
