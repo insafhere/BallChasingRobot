@@ -1,3 +1,5 @@
+from picamera.array import PiRGBArray     #As there is a resolution problem in raspberry pi, will not be able to capture frames by VideoCapture
+from picamera import PiCamera
 import cv2
 import numpy as np
 
