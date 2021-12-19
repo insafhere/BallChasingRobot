@@ -197,7 +197,7 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
      
       elif(found==1):
-            if(area<initial):  #if area is small than 400
+            if(area<initial):  #if area is small than 80
                   if(distanceC<10):
                         rightturn()
                         time.sleep(0.00625)
@@ -216,30 +216,21 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
                         #otherwise it move forward
                         forward()
                         time.sleep(0.00625)
-            elif(area>=initial):  #  if area is bigger than 400
-                  initial2=6700
-                  if(area<initial2):
-                        if(distanceC>10):
-                              #it brings coordinates of ball to center of camera's imaginary axis.
-                              if(centre_x<=-20 or centre_x>=20):
-                                    if(centre_x<0):
-                                          rightturn()
-                                          time.sleep(0.025)
-                                    elif(centre_x>0):
-                                          leftturn()
-                                          time.sleep(0.025)
-                              forward()
-                              time.sleep(0.00003125)
-                              stop()
-                              time.sleep(0.00625)
-                        else:
-                              stop()
-                              time.sleep(0.01)
-
+            elif(area>=initial):  #  if area is bigger than 80
+                  if(distanceC>10):
+                        #it brings coordinates of ball to center of camera's imaginary axis.
+                        if(centre_x<=-20 or centre_x>=20):
+                              if(centre_x<0):
+                                    rightturn()
+                                    time.sleep(0.025)
+                              elif(centre_x>0):
+                                    leftturn()
+                                    time.sleep(0.025)
+                        forward()
+                        time.sleep(0.01)
                   else:
-                        time.sleep(0.1)
                         stop()
-                        time.sleep(0.1)
+                        time.sleep(0.01)
       cv2.imshow("frame",frame)    
       rawCapture.truncate(0)  # clear the stream in preparation for the next frame
          
