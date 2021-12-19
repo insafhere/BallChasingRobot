@@ -7,21 +7,19 @@ def nothing(x):
 cap = cv2.VideoCapture(0)
 cv2.namedWindow("YCR Trackbars")
 
-cv2.createTrackbar("L - Y", "YCR Trackbars", 0, 179, nothing)
-cv2.createTrackbar("L - C", "YCR Trackbars", 0, 255, nothing)
-cv2.createTrackbar("L - R", "YCR Trackbars", 0, 255, nothing)
-cv2.createTrackbar("U - Y", "YCR Trackbars", 179, 179, nothing)
-cv2.createTrackbar("U - C", "YCR Trackbars", 255, 255, nothing)
-cv2.createTrackbar("U - R", "YCR Trackbars", 255, 255, nothing)
+cv2.createTrackbar("L - Y", "Trackbars", 0, 179, nothing)
+cv2.createTrackbar("L - C", "Trackbars", 0, 255, nothing)
+cv2.createTrackbar("L - R", "Trackbars", 0, 255, nothing)
+cv2.createTrackbar("U - Y", "Trackbars", 179, 179, nothing)
+cv2.createTrackbar("U - C", "Trackbars", 255, 255, nothing)
+cv2.createTrackbar("U - R", "Trackbars", 255, 255, nothing)
 
-cv2.namedWindow("HSV Trackbars")
-
-cv2.createTrackbar("L - H", "HSV Trackbars", 0, 179, nothing)
-cv2.createTrackbar("L - S", "HSV Trackbars", 0, 255, nothing)
-cv2.createTrackbar("L - V", "HSV Trackbars", 0, 255, nothing)
-cv2.createTrackbar("U - H", "HSV Trackbars", 179, 179, nothing)
-cv2.createTrackbar("U - S", "HSV Trackbars", 255, 255, nothing)
-cv2.createTrackbar("U - V", "HSV Trackbars", 255, 255, nothing)
+cv2.createTrackbar("L - H", "Trackbars", 0, 179, nothing)
+cv2.createTrackbar("L - S", "Trackbars", 0, 255, nothing)
+cv2.createTrackbar("L - V", "Trackbars", 0, 255, nothing)
+cv2.createTrackbar("U - H", "Trackbars", 179, 179, nothing)
+cv2.createTrackbar("U - S", "Trackbars", 255, 255, nothing)
+cv2.createTrackbar("U - V", "Trackbars", 255, 255, nothing)
 
 
 def find_blob(blob): #returns the robo green colored circle
@@ -47,12 +45,12 @@ while True:
 	#YCR
 	ycr = cv2.cvtColor(frame, cv2.COLOR_BGR2YCrCb)
 
-	l_y = cv2.getTrackbarPos("L - Y", "YCR Trackbars")
-	l_c = cv2.getTrackbarPos("L - C", "YCR Trackbars")
-	l_r = cv2.getTrackbarPos("L - R", "YCR Trackbars")
-	u_y = cv2.getTrackbarPos("U - Y", "YCR Trackbars")
-	u_c = cv2.getTrackbarPos("U - C", "YCR Trackbars")
-	u_r = cv2.getTrackbarPos("U - R", "YCR Trackbars")
+	l_y = cv2.getTrackbarPos("L - Y", "Trackbars")
+	l_c = cv2.getTrackbarPos("L - C", "Trackbars")
+	l_r = cv2.getTrackbarPos("L - R", "Trackbars")
+	u_y = cv2.getTrackbarPos("U - Y", "Trackbars")
+	u_c = cv2.getTrackbarPos("U - C", "Trackbars")
+	u_r = cv2.getTrackbarPos("U - R", "Trackbars")
 
 	ycr_lower = np.array([l_y, l_c, l_r])
 	ycr_upper = np.array([u_y, u_c, u_r])
@@ -71,12 +69,12 @@ while True:
 	#HSV
 	hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-	l_h = cv2.getTrackbarPos("L - H", "HSV Trackbars")
-	l_s = cv2.getTrackbarPos("L - S", "HSV Trackbars")
-	l_v = cv2.getTrackbarPos("L - V", "HSV Trackbars")
-	u_h= cv2.getTrackbarPos("U - H", "HSV Trackbars")
-	u_s= cv2.getTrackbarPos("U - S", "HSV Trackbars")
-	u_v= cv2.getTrackbarPos("U - V", "HSV Trackbars")
+	l_h = cv2.getTrackbarPos("L - H", "Trackbars")
+	l_s = cv2.getTrackbarPos("L - S", "Trackbars")
+	l_v = cv2.getTrackbarPos("L - V", "Trackbars")
+	u_h= cv2.getTrackbarPos("U - H", "Trackbars")
+	u_s= cv2.getTrackbarPos("U - S", "Trackbars")
+	u_v= cv2.getTrackbarPos("U - V", "Trackbars")
 
 	hsv_lower = np.array([l_h, l_s, l_v])
 	hsv_upper = np.array([u_h, u_s, u_v])
