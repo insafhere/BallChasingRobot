@@ -36,9 +36,7 @@ p.start(100)
 p1.start(100)
 
 # Set trigger to False (Low)
-GPIO.output(GPIO_TRIGGER1, False)
 GPIO.output(GPIO_TRIGGER2, False)
-GPIO.output(GPIO_TRIGGER3, False)
 
 # Allow module to settle
 def sonar(GPIO_TRIGGER,GPIO_ECHO):
@@ -187,6 +185,7 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
             centre_y = 60 - centre_y
             print(centre_x,centre_y)
             print("Area : %.1f" % area)
+            GPIO.output(LED_PIN,GPIO.HIGH)
       initial=400
 
       GPIO.output(LED_PIN,GPIO.LOW)          
@@ -237,8 +236,6 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
                               time.sleep(0.01)
 
                   else:
-                        #if it founds the ball and it is too close it lights up the led.
-                        GPIO.output(LED_PIN,GPIO.HIGH)
                         time.sleep(0.1)
                         stop()
                         time.sleep(0.1)
