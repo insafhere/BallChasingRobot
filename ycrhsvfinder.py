@@ -63,7 +63,7 @@ while True:
 	cv2.rectangle(frame, (x1,y1), (x1+w1,y1+h1), 255,2)
 	ycr_centre_x=x1+((w1)/2)
 	ycr_centre_y=y1+((h1)/2)
-	cv2.circle(frame,(int(ycr_centre_x),int(ycr_centre_y)),3,(0,110,255),-1)
+	cv2.circle(frame,(int(ycr_centre_x),int(ycr_centre_y)),3,(0,255,0),-1)
 	print("YCR Centre x is : " , ycr_centre_x,"YCR Centre y is : ", ycr_centre_y)
 
 	#HSV
@@ -87,7 +87,7 @@ while True:
 	cv2.rectangle(frame, (x2,y2), (x2+w2,y2+h2), 255,2)
 	hsv_centre_x=x2+((w2)/2)
 	hsv_centre_y=y2+((h2)/2)
-	cv2.circle(frame,(int(hsv_centre_x),int(hsv_centre_y)),3,(0,110,255),-1)
+	cv2.circle(frame,(int(hsv_centre_x),int(hsv_centre_y)),3,(0,0,255),-1)
 	print("HSV Centre x is : " , hsv_centre_x,"HSV Centre y is : ", hsv_centre_y)
 
 	#IMSHOW
