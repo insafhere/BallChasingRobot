@@ -10,8 +10,8 @@ import numpy as np
 #hardware work
 GPIO.setmode(GPIO.BCM)
 
-GPIO_TRIGGER2 = 26      #Front ultrasonic sensor
-GPIO_ECHO2 = 19
+GPIO_TRIGGER2 = 19      #Front ultrasonic sensor
+GPIO_ECHO2 = 26
 
 MOTOR1B=25  #Left Motor
 MOTOR1E=8
