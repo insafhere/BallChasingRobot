@@ -58,9 +58,9 @@ def target_hist(frame):
 #CAMERA CAPTURE
 #initialize the camera and grab a reference to the raw camera capture
 camera = PiCamera()
-camera.resolution = (160, 120)
+camera.resolution = (160, 128)
 camera.framerate = 16
-rawCapture = PiRGBArray(camera, size=(160, 120))
+rawCapture = PiRGBArray(camera, size=(160, 128))
  
 # allow the camera to warmup
 time.sleep(0.001)
@@ -94,6 +94,6 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 	centre_y=y+((h)/2)
 	frame = cv2.circle(frame,(int(centre_x),int(centre_y)),3,(0,110,255),-1)
 	centre_x = 80 - centre_x
-	centre_y= 60 - centre_y
+	centre_y= 64 - centre_y
 	print("Centre x is : " , centre_x,"Centre y is : ", centre_y)
     
