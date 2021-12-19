@@ -56,8 +56,6 @@ while True:
 	centre_x=x+((w)/2)
 	centre_y=y+((h)/2)
 	frame = cv2.circle(frame,(int(centre_x),int(centre_y)),3,(0,110,255),-1)
-	centre_x-=80
-	centre_y=6--centre_y
 	print("Centre x is : " , centre_x,"Centre y is : ", centre_y)
 
 	cv2.imshow("frame", frame)
