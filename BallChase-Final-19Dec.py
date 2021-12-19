@@ -149,12 +149,6 @@ def find_blob(blob): #returns the red colored circle
        
     return r,largest_contour
 
-def target_hist(frame):
-    hsv_img=cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-   
-    hist=cv2.calcHist([hsv_img],[0],None,[50],[0,255])
-    return hist
-
 #CAMERA CAPTURE
 #initialize the camera and grab a reference to the raw camera capture
 camera = PiCamera()
