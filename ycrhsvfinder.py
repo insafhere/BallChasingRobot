@@ -41,6 +41,8 @@ def find_blob(blob): #returns the robo green colored circle
 while True:
 	_, frame = cap.read()
 	frame=cv2.flip(frame,-1)
+	frame1 = cv2.flip(frame,-1)
+	frame2 = cv2.flip(frame,-1)
 
 	#YCR
 	ycr = cv2.cvtColor(frame, cv2.COLOR_BGR2YCrCb)
@@ -56,7 +58,7 @@ while True:
 	ycr_upper = np.array([u_y, u_c, u_r])
 
 	ycr_mask = cv2.inRange(ycr, ycr_lower, ycr_upper)
-	ycr_result = cv2.bitwise_and(frame, frame, mask=ycr_mask)
+	ycr_result = cv2.bitwise_and(ycr_mask, frame1)
 
 	loct1,area1=find_blob(ycr_mask)
 	x1,y1,w1,h1=loct1	
@@ -80,7 +82,7 @@ while True:
 	hsv_upper = np.array([u_h, u_s, u_v])
 
 	hsv_mask = cv2.inRange(hsv, hsv_lower, hsv_upper)
-	hsv_result = cv2.bitwise_and(frame, frame, mask=hsv_mask)
+	hsv_result = cv2.bitwise_and(hsv_mask_frame2)
 
 	loct2,area2=find_blob(hsv_mask)
 	x2,y2,w2,h2=loct2	
