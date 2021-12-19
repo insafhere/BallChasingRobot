@@ -17,19 +17,6 @@ cv2.createTrackbar("U - H", "HSV Trackbar", 179, 179, nothing)
 cv2.createTrackbar("U - S", "HSV Trackbar", 255, 255, nothing)
 cv2.createTrackbar("U - V", "HSV Trackbar", 255, 255, nothing)
 
-
-#Image analysis work
-def segment_colour(frame):    #returns only the red colors in the frame
-	cv2.imshow("frame", frame)
-	hsv_roi =  cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-	mask_1 = cv2.inRange(hsv_roi, hsv_lower, hsv_upper)
-	cv2.imshow('HSV Mask',mask_1)
-
-	result = cv2.bitwise_and(frame, frame, mask=mask)
-	cv2.imshow('result',result)
-	
-	return mask
-
 def find_blob(blob): #returns the red colored circle
 	largest_contour=0
 	cont_index=0
@@ -85,7 +72,14 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 	hsv_lower = np.array([l_h, l_s, l_v])
 	hsv_upper = np.array([u_h, u_s, u_v])
 	
-	mask=segment_colour(frame)      #masking after both ycr and hsv
+	cv2.imshow("frame", frame)
+	hsv_roi =  cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+	mask_1 = cv2.inRange(hsv_roi, hsv_lower, hsv_upper)
+	cv2.imshow('HSV Mask',mask_1)
+
+	result = cv2.bitwise_and(frame, frame, mask=mask)
+	cv2.imshow('result',result)     
+	
 	loct,area=find_blob(mask)
 	x,y,w,h=loct
 	
