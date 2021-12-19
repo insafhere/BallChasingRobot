@@ -23,12 +23,10 @@ en1 = 14
 LED_PIN=13  #If it finds the ball, then it will light up the led
 
 # Set pins as output and input
-GPIO.setup(GPIO_TRIGGER1,GPIO.OUT)  # Trigger
-GPIO.setup(GPIO_ECHO1,GPIO.IN)      # Echo
+
 GPIO.setup(GPIO_TRIGGER2,GPIO.OUT)  # Trigger
 GPIO.setup(GPIO_ECHO2,GPIO.IN)
-GPIO.setup(GPIO_TRIGGER3,GPIO.OUT)  # Trigger
-GPIO.setup(GPIO_ECHO3,GPIO.IN)
+
 GPIO.setup(LED_PIN,GPIO.OUT)
 GPIO.setup(en ,GPIO.OUT)
 GPIO.setup(en1 ,GPIO.OUT)
@@ -77,7 +75,7 @@ def sonar(GPIO_TRIGGER,GPIO_ECHO):
       # That was the distance there and back so halve the value
       distance = distance / 2
      
-      print "Distance : %.1f" % distance
+      print("Distance : %.1f" % distance)
       # Reset GPIO settings
       return distance
 
@@ -194,7 +192,7 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
             cv2.circle(frame,(int(centre_x),int(centre_y)),3,(0,110,255),-1)
             centre_x = 80 - centre_x
             centre_y = 60 - centre_y
-            print centre_x,centre_y
+            print(centre_x,centre_y)
       initial=400
       flag=0
       GPIO.output(LED_PIN,GPIO.LOW)          
