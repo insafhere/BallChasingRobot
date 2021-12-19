@@ -118,9 +118,9 @@ def stop():
 #Image analysis work
 def segment_colour(frame):    #returns only the red colors in the frame
     hsv_roi =  cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-    mask_1 = cv2.inRange(hsv_roi, np.array([39, 50,110]), np.array([77,101,158]))
+    mask_1 = cv2.inRange(hsv_roi, np.array([48, 55,148]), np.array([55,102,182]))
     ycr_roi=cv2.cvtColor(frame,cv2.COLOR_BGR2YCrCb)
-    mask_2=cv2.inRange(ycr_roi, np.array((108,117,106)), np.array((138,133,116)))
+    mask_2=cv2.inRange(ycr_roi, np.array((108,109,102)), np.array((167,122,114)))
 
     mask = mask_1 | mask_2
     kern_dilate = np.ones((8,8),np.uint8)
