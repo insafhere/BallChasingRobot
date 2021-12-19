@@ -97,13 +97,13 @@ def reverse():
       GPIO.output(MOTOR2B, GPIO.LOW)
       GPIO.output(MOTOR2E, GPIO.HIGH)
      
-def rightturn():
+def leftturn():
       GPIO.output(MOTOR1B,GPIO.LOW)
       GPIO.output(MOTOR1E,GPIO.HIGH)
       GPIO.output(MOTOR2B,GPIO.HIGH)
       GPIO.output(MOTOR2E,GPIO.LOW)
      
-def leftturn():
+def rightturn():
       GPIO.output(MOTOR1B,GPIO.HIGH)
       GPIO.output(MOTOR1E,GPIO.LOW)
       GPIO.output(MOTOR2B,GPIO.LOW)
