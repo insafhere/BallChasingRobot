@@ -80,7 +80,7 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 	result = cv2.bitwise_and(frame, frame, mask=mask)
 	cv2.imshow('result',result)     
 	
-	loct,area=find_blob(mask)
+	loct,area=find_blob(mask_1)
 	x,y,w,h=loct
 	
 	simg2 = cv2.rectangle(frame, (x,y), (x+w,y+h), 255,2)
