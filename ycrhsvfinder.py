@@ -70,7 +70,7 @@ while True:
 	print("YCR Centre x is : " , ycr_centre_x,"YCR Centre y is : ", ycr_centre_y)
 
 	#HSV
-	hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+	hsv = cv2.cvtColor(frame2, cv2.COLOR_BGR2HSV)
 
 	l_h = cv2.getTrackbarPos("L - H", "Trackbars")
 	l_s = cv2.getTrackbarPos("L - S", "Trackbars")
