@@ -42,7 +42,7 @@ while True:
 	_, frame = cap.read()
 	frame=cv2.flip(frame,-1)
 	_, frame2 = cap.read()
-	frame2=cv2.flip(frame,-1)
+	frame2=cv2.flip(frame2,-1)
 	
 
 	#YCR
