@@ -92,6 +92,13 @@ while True:
 	hsv_centre_y=y2+((h2)/2)
 	cv2.circle(frame,(int(hsv_centre_x),int(hsv_centre_y)),3,(0,0,255),-1)
 	print("HSV Centre x is : " , hsv_centre_x,"HSV Centre y is : ", hsv_centre_y)
+	
+	mask = hsv_mask | ycr_mask
+	kern_dilate = np.ones((8,8),np.uint8)
+	kern_erode  = np.ones((3,3),np.uint8)
+	mask= cv2.erode(mask,kern_erode)      #Eroding
+	mask=cv2.dilate(mask,kern_dilate)     #Dilating
+	cv2.imshow("mask", mask)
 
 	#IMSHOW
 	cv2.imshow("frame", frame)
