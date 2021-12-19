@@ -117,9 +117,9 @@ def stop():
 #Image analysis work
 def segment_colour(frame):    #returns only the red colors in the frame
     hsv_roi =  cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-    mask_1 = cv2.inRange(hsv_roi, np.array([39, 50,110]), np.array([77,101,158]))
+    mask_1 = cv2.inRange(hsv_roi, np.array([35, 78,109]), np.array([179,255,255]))
     ycr_roi=cv2.cvtColor(frame,cv2.COLOR_BGR2YCrCb)
-    mask_2=cv2.inRange(ycr_roi, np.array((108,117,106)), np.array((138,133,116)))
+    mask_2=cv2.inRange(ycr_roi, np.array((70,112,91)), np.array((164,159,113)))
 
     mask = mask_1 | mask_2
     kern_dilate = np.ones((8,8),np.uint8)
@@ -184,6 +184,7 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
             centre_x = 80 - centre_x
             centre_y = 60 - centre_y
             print(centre_x,centre_y)
+            print("Area : %.1f" % area)
       initial=400
 
       GPIO.output(LED_PIN,GPIO.LOW) 
