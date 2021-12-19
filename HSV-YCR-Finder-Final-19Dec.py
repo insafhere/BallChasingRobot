@@ -115,7 +115,7 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 	ycr_upper = np.array([u_y, u_c, u_r])
 	
 	mask=segment_colour(frame)      #masking after both ycr and hsv
-	loct,area=find_blob(mask_red)
+	loct,area=find_blob(mask)
 	x,y,w,h=loct
 	
 	
