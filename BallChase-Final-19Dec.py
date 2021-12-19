@@ -9,14 +9,9 @@ import numpy as np
 
 #hardware work
 GPIO.setmode(GPIO.BCM)
-GPIO_TRIGGER1 = 5      #Left ultrasonic sensor
-GPIO_ECHO1 = 31
 
-GPIO_TRIGGER2 = 13      #Front ultrasonic sensor
-GPIO_ECHO2 = 6
-
-GPIO_TRIGGER3 = 26      #Right ultrasonic sensor
-GPIO_ECHO3 = 19
+GPIO_TRIGGER2 = 26      #Front ultrasonic sensor
+GPIO_ECHO2 = 19
 
 MOTOR1B=25  #Left Motor
 MOTOR1E=8
@@ -125,16 +120,16 @@ def stop():
 #Image analysis work
 def segment_colour(frame):    #returns only the red colors in the frame
     hsv_roi =  cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-    mask_1 = cv2.inRange(hsv_roi, np.array([160, 160,10]), np.array([190,255,255]))
+    mask_1 = cv2.inRange(hsv_roi, np.array([39, 50,110]), np.array([77,101,158]))
     ycr_roi=cv2.cvtColor(frame,cv2.COLOR_BGR2YCrCb)
-    mask_2=cv2.inRange(ycr_roi, np.array((0.,165.,0.)), np.array((255.,255.,255.)))
+    mask_2=cv2.inRange(ycr_roi, np.array((108,117,106)), np.array((138,133,116)))
 
     mask = mask_1 | mask_2
     kern_dilate = np.ones((8,8),np.uint8)
     kern_erode  = np.ones((3,3),np.uint8)
     mask= cv2.erode(mask,kern_erode)      #Eroding
     mask=cv2.dilate(mask,kern_dilate)     #Dilating
-    #cv2.imshow('mask',mask)
+    cv2.imshow('mask',mask)
     return mask
 
 def find_blob(blob): #returns the red colored circle
@@ -188,10 +183,6 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
      
       #distance coming from front ultrasonic sensor
       distanceC = sonar(GPIO_TRIGGER2,GPIO_ECHO2)
-      #distance coming from right ultrasonic sensor
-      distanceR = sonar(GPIO_TRIGGER3,GPIO_ECHO3)
-      #distance coming from left ultrasonic sensor
-      distanceL = sonar(GPIO_TRIGGER1,GPIO_ECHO1)
              
       if (w*h) < 10:
             found=0
@@ -201,8 +192,8 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
             centre_x=x+((w)/2)
             centre_y=y+((h)/2)
             cv2.circle(frame,(int(centre_x),int(centre_y)),3,(0,110,255),-1)
-            centre_x-=80
-            centre_y=6--centre_y
+            centre_x = 80 - centre_x
+            centre_y = 60 - centre_y
             print centre_x,centre_y
       initial=400
       flag=0
@@ -221,35 +212,19 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
       elif(found==1):
             if(area<initial):
                   if(distanceC<10):
-                        #if ball is too far but it detects something in front of it,then it avoid it and reaches the ball.
-                        if distanceR>=8:
-                              rightturn()
-                              time.sleep(0.00625)
-                              stop()
-                              time.sleep(0.0125)
-                              forward()
-                              time.sleep(0.00625)
-                              stop()
-                              time.sleep(0.0125)
-                              #while found==0:
-                              leftturn()
-                              time.sleep(0.00625)
-                        elif distanceL>=8:
-                              leftturn()
-                              time.sleep(0.00625)
-                              stop()
-                              time.sleep(0.0125)
-                              forward()
-                              time.sleep(0.00625)
-                              stop()
-                              time.sleep(0.0125)
-                              rightturn()
-                              time.sleep(0.00625)
-                              stop()
-                              time.sleep(0.0125)
-                        else:
-                              stop()
-                              time.sleep(0.01)
+                        rightturn()
+                        time.sleep(0.00625)
+                        stop()
+                        time.sleep(0.0125)
+                        forward()
+                        time.sleep(0.00625)
+                        stop()
+                        time.sleep(0.0125)
+                        #while found==0:
+                        leftturn()
+                        time.sleep(0.00625)
+                        stop()
+                        time.sleep(0.0125)
                   else:
                         #otherwise it move forward
                         forward()
