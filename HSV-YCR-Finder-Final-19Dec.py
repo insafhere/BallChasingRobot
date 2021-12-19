@@ -2,6 +2,8 @@ from picamera.array import PiRGBArray     #As there is a resolution problem in r
 from picamera import PiCamera
 import cv2
 import numpy as np
+import RPi.GPIO as GPIO
+import time
 
 def nothing(x):
     pass
