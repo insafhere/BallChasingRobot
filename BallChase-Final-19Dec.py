@@ -168,9 +168,8 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
       global centre_y
       centre_x=0.
       centre_y=0.
-      hsv1 = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-      mask_red=segment_colour(frame)      #masking red the frame
-      loct,area=find_blob(mask_red)
+      mask=segment_colour(frame) 
+      loct,area=find_blob(mask)
       x,y,w,h=loct
      
       #distance coming from front ultrasonic sensor
@@ -188,21 +187,16 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
             centre_y = 60 - centre_y
             print(centre_x,centre_y)
       initial=400
-      flag=0
+
       GPIO.output(LED_PIN,GPIO.LOW)          
       if(found==0):
-            #if the ball is not found and the last time it sees ball in which direction, it will start to rotate in that direction
-            if flag==0:
-                  rightturn()
-                  time.sleep(0.05)
-            else:
-                  leftturn()
-                  time.sleep(0.05)
+            rightturn()
+            time.sleep(0.05)
             stop()
             time.sleep(0.0125)
      
       elif(found==1):
-            if(area<initial):
+            if(area<initial):  #if area is small than 400
                   if(distanceC<10):
                         rightturn()
                         time.sleep(0.00625)
@@ -221,18 +215,16 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
                         #otherwise it move forward
                         forward()
                         time.sleep(0.00625)
-            elif(area>=initial):
+            elif(area>=initial):  #  if area is bigger than 400
                   initial2=6700
                   if(area<initial2):
                         if(distanceC>10):
                               #it brings coordinates of ball to center of camera's imaginary axis.
                               if(centre_x<=-20 or centre_x>=20):
                                     if(centre_x<0):
-                                          flag=0
                                           rightturn()
                                           time.sleep(0.025)
                                     elif(centre_x>0):
-                                          flag=1
                                           leftturn()
                                           time.sleep(0.025)
                               forward()
@@ -249,7 +241,7 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
                         time.sleep(0.1)
                         stop()
                         time.sleep(0.1)
-      #cv2.imshow("draw",frame)    
+      cv2.imshow("frame",frame)    
       rawCapture.truncate(0)  # clear the stream in preparation for the next frame
          
       if(cv2.waitKey(1) & 0xff == ord('q')):
