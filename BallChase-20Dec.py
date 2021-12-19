@@ -184,14 +184,14 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
             centre_x = 80 - centre_x
             centre_y = 60 - centre_y
             print(centre_x,centre_y)
-            print("Area : %.1f" % area)
+            
       initial=400
 
       GPIO.output(LED_PIN,GPIO.LOW) 
       
-      
+      print("Area : %.1f" % area)
       if(found==0):
-            if(distanceC>10):
+            if(distanceC<10):
                   rightturn()
             else:
                   forward()
