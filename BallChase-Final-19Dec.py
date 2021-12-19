@@ -161,7 +161,7 @@ time.sleep(0.001)
 for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
       #grab the raw NumPy array representing the image, then initialize the timestamp and occupied/unoccupied text
       frame = image.array
-      frame=cv2.flip(frame,1)
+      frame=cv2.flip(frame,-1)
       global centre_x
       global centre_y
       centre_x=0.
