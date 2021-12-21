@@ -88,8 +88,7 @@ def sonar(GPIO_TRIGGER,GPIO_ECHO):
      
       # That was the distance there and back so halve the value
       distance = distance / 2
-     
-      print("Distance : %.1f" % distance)
+    
       # Reset GPIO settings
       return distance
 
@@ -134,7 +133,7 @@ def segment_colour(frame):    #returns only the red colors in the frame
     hsv_roi =  cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
     mask_1 = cv2.inRange(hsv_roi, np.array([48, 55,148]), np.array([55,102,182]))
     ycr_roi=cv2.cvtColor(frame,cv2.COLOR_BGR2YCrCb)
-    mask_2=cv2.inRange(ycr_roi, np.array((108,109.,102)), np.array((167,122,114)))
+    mask_2=cv2.inRange(ycr_roi, np.array([108, 109, 102]), np.array([167,122,114]))
 
     mask = mask_1 | mask_2
     kern_dilate = np.ones((8,8),np.uint8)
@@ -183,7 +182,7 @@ time.sleep(0.001)
 for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
       #grab the raw NumPy array representing the image, then initialize the timestamp and occupied/unoccupied text
       frame = image.array
-      frame=cv2.flip(frame,1)
+      frame=cv2.flip(frame,-1)
       global centre_x
       global centre_y
       centre_x=0.
@@ -195,10 +194,13 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
      
       #distance coming from front ultrasonic sensor
       distanceC = sonar(GPIO_TRIGGER2,GPIO_ECHO2)
+      print("Distance Centre : %.1f" % distanceC)
       #distance coming from right ultrasonic sensor
       distanceR = sonar(GPIO_TRIGGER3,GPIO_ECHO3)
+      print("Distance Right: %.1f" % distanceR)
       #distance coming from left ultrasonic sensor
       distanceL = sonar(GPIO_TRIGGER1,GPIO_ECHO1)
+      print("Distance Left: %.1f" % distanceL)
       
       GPIO.output(LED_PIN,GPIO.LOW)     
       
