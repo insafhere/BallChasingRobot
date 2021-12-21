@@ -179,6 +179,11 @@ rawCapture = PiRGBArray(camera, size=(160, 120))
 # allow the camera to warmup
 time.sleep(0.001)
 
+def sensormeasure():
+      C = sonar(GPIO_TRIGGER2,GPIO_ECHO2)
+      L = sonar(GPIO_TRIGGER1,GPIO_ECHO1)
+      R = sonar(GPIO_TRIGGER3,GPIO_ECHO3)
+     
 def centresensor():
       sonar(GPIO_TRIGGER2,GPIO_ECHO2)
 def rightsensor():
@@ -231,25 +236,27 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
             #print(centre_x,centre_y)
             #GPIO.output(LED_PIN,GPIO.HIGH)
       #initial=80
+      
+      sensormeasure():
 
-      if(leftsensor()<25 and centresensor()<25 and rightsensor()<25):
+      if(L<25 and C<25 and R<25):
             rightturn()
             time.sleep(3)
-      if(leftsensor()>25 and centresensor()<25 and rightsensor()<25):
+      if(L>25 and C<25 and R<25):
             leftturn()
-      if(leftsensor()<25 and centresensor()<25 and rightsensor()>25):
+      if(L<25 and C<25 and R>25):
             rightturn()
-      if(leftsensor()>25 and centresensor()<25 and rightsensor()>25):
+      if(L>25 and C<25 and R>25):
             rightturn()
-      if(leftsensor()<25 and centresensor()>25 and rightsensor()>25):
+      if(L<25 and C>25 and R>25):
             rightturn() 
             time.sleep(180)
             forward()
-      if(leftsensor()>25 and centresensor()>25 and rightsensor()<25):
+      if(L>25 and C>25 and R<25):
             leftturn() 
             time.sleep(180)
             forward()
-      if(leftsensor()>25 and centresensor()>25 and rightsensor()>25):
+      if(L>25 and C>25 and R>25):
             forward()
             
       #print(direction)
