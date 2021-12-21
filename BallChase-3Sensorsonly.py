@@ -186,7 +186,6 @@ def rightsensor():
 def leftsensor():
       sonar(GPIO_TRIGGER1,GPIO_ECHO1)
 
-DIS = 25
 
 # capture frames from the camera
 for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
@@ -233,24 +232,24 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
             #GPIO.output(LED_PIN,GPIO.HIGH)
       #initial=80
 
-      if(leftsensor()<DIS and centresensor()<DIS and rightsensor()<DIS):
+      if(leftsensor()<25 and centresensor()<25 and rightsensor()<25):
             rightturn()
             time.sleep(3)
-      if(leftsensor()>DIS and centresensor()<DIS and rightsensor()<DIS):
+      if(leftsensor()>25 and centresensor()<25 and rightsensor()<25):
             leftturn()
-      if(leftsensor()<DIS and centresensor()<DIS and rightsensor()>DIS):
+      if(leftsensor()<25 and centresensor()<25 and rightsensor()>25):
             rightturn()
-      if(leftsensor()>DIS and centresensor()<DIS and rightsensor()>DIS):
+      if(leftsensor()>25 and centresensor()<25 and rightsensor()>25):
             rightturn()
-      if(leftsensor()<DIS and centresensor()>DIS and rightsensor()>DIS):
+      if(leftsensor()<25 and centresensor()>25 and rightsensor()>25):
             rightturn() 
             time.sleep(180)
             forward()
-      if(leftsensor()>DIS and centresensor()>DIS and rightsensor()<DIS):
+      if(leftsensor()>25 and centresensor()>25 and rightsensor()<25):
             leftturn() 
             time.sleep(180)
             forward()
-      if(leftsensor()>DIS and centresensor()>DIS and rightsensor()>DIS):
+      if(leftsensor()>25 and centresensor()>25 and rightsensor()>25):
             forward()
             
       #print(direction)
