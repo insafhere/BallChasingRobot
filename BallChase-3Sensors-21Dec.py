@@ -206,8 +206,8 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
       
       wxh_Area = w*h
       
-      print("w x h: %.1f" % wxh_Area)
-      print("Area: %.1f" % area)
+      #print("w x h: %.1f" % wxh_Area)
+      #print("Area: %.1f" % area)
       
       if (wxh_Area) < 10:
             found=0
@@ -219,87 +219,35 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
             cv2.circle(frame,(int(centre_x),int(centre_y)),3,(0,110,255),-1)
             centre_x = 80 - centre_x
             centre_y= 60 - centre_y
-            print(centre_x,centre_y)
+            #print(centre_x,centre_y)
             GPIO.output(LED_PIN,GPIO.HIGH)
       initial=80
       
       flag=0
       
-      if(found==0):
-            #if the ball is not found and the last time it sees ball in which direction, it will start to rotate in that direction
-            if flag==0:
-                  rightturn()
-                  time.sleep(0.05)
-            else:
-                  leftturn()
-                  time.sleep(0.05)
-            stop()
-            time.sleep(0.0125)
-     
-      elif(found==1):
-            if(area<initial):
-                  if(distanceC<10):
-                        #if ball is too far but it detects something in front of it,then it avoid it and reaches the ball.
-                        if distanceR>=10:
-                              rightturn()
-                              time.sleep(0.00625)
-                              stop()
-                              time.sleep(0.0125)
-                              forward()
-                              time.sleep(0.00625)
-                              stop()
-                              time.sleep(0.0125)
-                              #while found==0:
-                              leftturn()
-                              time.sleep(0.00625)
-                        elif distanceL>=10:
-                              leftturn()
-                              time.sleep(0.00625)
-                              stop()
-                              time.sleep(0.0125)
-                              forward()
-                              time.sleep(0.00625)
-                              stop()
-                              time.sleep(0.0125)
-                              rightturn()
-                              time.sleep(0.00625)
-                              stop()
-                              time.sleep(0.0125)
-                        else:
-                              stop()
-                              time.sleep(0.01)
-                  else:
-                        #otherwise it move forward
-                        forward()
-                        time.sleep(0.00625)
-            elif(area>=initial):
-                  initial2=6700
-                  if(area<initial2):
-                        if(distanceC>15):
-                              #it brings coordinates of ball to center of camera's imaginary axis.
-                              if(centre_x<=-20 or centre_x>=20):
-                                    if(centre_x<0):
-                                          flag=0
-                                          rightturn()
-                                          time.sleep(0.025)
-                                    elif(centre_x>0):
-                                          flag=1
-                                          leftturn()
-                                          time.sleep(0.025)
-                              forward()
-                              time.sleep(0.00003125)
-                              stop()
-                              time.sleep(0.00625)
-                        else:
-                              stop()
-                              time.sleep(0.01)
-
-                  else:
-                        #if it founds the ball and it is too close it lights up the led.
-                        GPIO.output(LED_PIN,GPIO.HIGH)
-                        time.sleep(0.1)
+      if(distanceC<10):
+            if(distanceL<10):
+                  if(distanceR<10):
                         stop()
-                        time.sleep(0.1)
+                  if(distanceR>10):
+                        rightturn()
+            if(distanceL>10):
+                  if(distanceR>10):
+                        rightturn()
+                  if(distanceR<10):
+                        leftturn()
+      if(distanceC>10):
+            if(distanceL<10):
+                  if(distanceR<10):
+                        stop()
+                  if(distanceR>10):
+                        rightturn()
+            if(distanceL>10):
+                  if(distanceR>10):
+                        forward()
+                  if(distanceR<10):
+                        leftturn()
+     
       cv2.imshow("draw",frame)    
       rawCapture.truncate(0)  # clear the stream in preparation for the next frame
          
