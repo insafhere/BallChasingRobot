@@ -92,6 +92,7 @@ def sonar(GPIO_TRIGGER,GPIO_ECHO):
       # Reset GPIO settings
       return distance
 
+
 GPIO.setup(MOTOR1B, GPIO.OUT)
 GPIO.setup(MOTOR1E, GPIO.OUT)
 
@@ -177,7 +178,16 @@ rawCapture = PiRGBArray(camera, size=(160, 120))
  
 # allow the camera to warmup
 time.sleep(0.001)
- 
+
+def centresensor():
+      sonar(GPIO_TRIGGER2,GPIO_ECHO2)
+def rightsensor():
+      sonar(GPIO_TRIGGER3,GPIO_ECHO3)
+def leftsensor():
+      sonar(GPIO_TRIGGER1,GPIO_ECHO1)
+
+DIS = 25
+
 # capture frames from the camera
 for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
       #grab the raw NumPy array representing the image, then initialize the timestamp and occupied/unoccupied text
@@ -191,132 +201,59 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
       mask_red=segment_colour(frame)      #masking red the frame
       loct,area=find_blob(mask_red)
       x,y,w,h=loct
-     
-      #distance coming from front ultrasonic sensor
-      distanceC = sonar(GPIO_TRIGGER2,GPIO_ECHO2)
-      print("Distance Centre : %.1f" % distanceC)
+
+      #distance coming from front ultrasonic sensor     
+      #distanceC = sonar(GPIO_TRIGGER2,GPIO_ECHO2)
+      #print("Distance Centre : %.1f" % distanceC)
       #distance coming from right ultrasonic sensor
-      distanceR = sonar(GPIO_TRIGGER3,GPIO_ECHO3)
-      print("Distance Right: %.1f" % distanceR)
+      #distanceR = sonar(GPIO_TRIGGER3,GPIO_ECHO3)
+      #print("Distance Right: %.1f" % distanceR)
       #distance coming from left ultrasonic sensor
-      distanceL = sonar(GPIO_TRIGGER1,GPIO_ECHO1)
-      print("Distance Left: %.1f" % distanceL)
+      #distanceL = sonar(GPIO_TRIGGER1,GPIO_ECHO1)
+      #print("Distance Left: %.1f" % distanceL)
       
       GPIO.output(LED_PIN,GPIO.LOW)     
       
-      wxh_Area = w*h
+      #wxh_Area = w*h
       
       #print("w x h: %.1f" % wxh_Area)
       #print("Area: %.1f" % area)
       
-      if (wxh_Area) < 10:
-            found=0
-      else:
-            found=1
-            simg2 = cv2.rectangle(frame, (x,y), (x+w,y+h), 255,2)
-            centre_x=x+((w)/2)
-            centre_y=y+((h)/2)
-            cv2.circle(frame,(int(centre_x),int(centre_y)),3,(0,110,255),-1)
-            centre_x = 80 - centre_x
-            centre_y= 60 - centre_y
+      #if (wxh_Area) < 10:
+            #found=0
+      #else:
+            #found=1
+            #simg2 = cv2.rectangle(frame, (x,y), (x+w,y+h), 255,2)
+            #centre_x=x+((w)/2)
+            #centre_y=y+((h)/2)
+            #cv2.circle(frame,(int(centre_x),int(centre_y)),3,(0,110,255),-1)
+            #centre_x = 80 - centre_x
+            #centre_y= 60 - centre_y
             #print(centre_x,centre_y)
-            GPIO.output(LED_PIN,GPIO.HIGH)
-      initial=80
-      
-      flag=0
-      
-      distance = ""
-      
-      if(distanceC<15):
-            if(distanceL<10):
-                  if(distanceR<10):
-                        stop()
-                        direction = "stop"
-                  if(distanceR>10 and distanceR<1000):
-                        reverse()
-                        time.sleep(0.05)
-                        rightturn()
-                        time.sleep(0.05)
-                        direction = "right"
-            if(distanceL>10 and distanceL<1000):
-                  if(distanceR>10 and distanceR<1000):
-                        reverse()
-                        time.sleep(0.00)
-                        rightturn()
-                        time.sleep(0.05)
-                        direction = "right"
-                  if(distanceR<10):
-                        reverse()
-                        time.sleep(0.05)
-                        leftturn()
-                        time.sleep(0.05)
-                        direction = "left"
-      if(distanceC>15 and distanceC<1000):
-            if(distanceL<10):
-                  if(distanceR<10):
-                        reverse()
-                        direction = "reverse"
-                  if(distanceR>10 and distanceR<1000):
-                        reverse()
-                        time.sleep(0.05)
-                        rightturn()
-                        time.sleep(0.05)
-                        direction = "right"
-            if(distanceL>10 and distanceL<1000):
-                  if(distanceR>10 and distanceR<1000):
-                        forward()
-                        direction = "forward"
-                  if(distanceR<10):
-                        reverse()
-                        time.sleep(0.05)
-                        leftturn()
-                        time.sleep(0.05)
-                        direction = "left"
-      
-      if(distanceC>1000):
-          if(distanceL>1000):
-              if(distanceR>1000):
-                  stop()
-                  direction = "stop"
-              if(distanceR<1000):
-                  reverse()
-                  time.sleep(0.05)
-                  rightturn()
-                  time.sleep(0.05)
-                  direction = "right"
-          if(distanceL<1000):
-              if(distanceR>1000):
-                  reverse()
-                  time.sleep(0.05)
-                  leftturn()
-                  time.sleep(0.05)
-                  direction = "left"
-              if(distanceR<1000):
-                  reverse()
-                  time.sleep(0.05)
-                  rightturn()
-                  time.sleep(0.05)
-                  direction = "right"
-      if(distanceC<1000):
-          if(distanceL>1000):
-              if(distanceR>1000):
-                  reverse()
-                  time.sleep(0.05)
-              if(distanceR<1000):
-                  reverse()
-                  time.sleep(0.05)
-                  rightturn()
-                  time.sleep(0.05)
-                  direction = "right" 
-          if(distanceL<1000):
-              if(distanceR>1000):
-                  reverse()
-                  time.sleep(0.05)
-                  leftturn()
-                  time.sleep(0.05)
-                  direction = "left"
-      
-      print(direction)
+            #GPIO.output(LED_PIN,GPIO.HIGH)
+      #initial=80
+
+      if(leftsensor()<DIS and centresensor()<DIS and rightsensor()<DIS):
+            rightturn()
+            time.sleep(3)
+      if(leftsensor()>DIS and centresensor()<DIS and rightsensor()<DIS):
+            leftturn()
+      if(leftsensor()<DIS and centresensor()<DIS and rightsensor()>DIS):
+            rightturn()
+      if(leftsensor()>DIS and centresensor()<DIS and rightsensor()>DIS):
+            rightturn()
+      if(leftsensor()<DIS and centresensor()>DIS and rightsensor()>DIS):
+            rightturn() 
+            time.sleep(180)
+            forward()
+      if(leftsensor()>DIS and centresensor()>DIS and rightsensor()<DIS):
+            leftturn() 
+            time.sleep(180)
+            forward()
+      if(leftsensor()>DIS and centresensor()>DIS and rightsensor()>DIS):
+            forward()
+            
+      #print(direction)
       cv2.imshow("draw",frame)    
       rawCapture.truncate(0)  # clear the stream in preparation for the next frame
          
