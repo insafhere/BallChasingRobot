@@ -204,7 +204,12 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
       
       GPIO.output(LED_PIN,GPIO.LOW)     
       
-      if (w*h) < 10:
+      wxh_Area = w*h
+      
+      print("w x h: %.1f" % wxh_Area)
+      print("Area: %.1f" % area)
+      
+      if (wxh_Area) < 10:
             found=0
       else:
             found=1
@@ -212,8 +217,8 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
             centre_x=x+((w)/2)
             centre_y=y+((h)/2)
             cv2.circle(frame,(int(centre_x),int(centre_y)),3,(0,110,255),-1)
-            centre_x-=80
-            centre_y=6--centre_y
+            centre_x = 80 - centre_x
+            centre_y= 60 - centre_y
             print(centre_x,centre_y)
             GPIO.output(LED_PIN,GPIO.HIGH)
       initial=80
@@ -233,7 +238,7 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
      
       elif(found==1):
             if(area<initial):
-                  if(distanceC<15):
+                  if(distanceC<10):
                         #if ball is too far but it detects something in front of it,then it avoid it and reaches the ball.
                         if distanceR>=10:
                               rightturn()
