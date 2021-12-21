@@ -225,64 +225,98 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
       
       flag=0
       
+      distance = ""
+      
       if(distanceC<15):
-            if(distanceL<15):
-                  if(distanceR<15):
+            if(distanceL<10):
+                  if(distanceR<10):
                         stop()
                         direction = "stop"
-                  if(distanceR>15 and distanceR<1000):
+                  if(distanceR>10 and distanceR<1000):
                         reverse()
                         time.sleep(0.05)
                         rightturn()
                         time.sleep(0.05)
                         direction = "right"
-            if(distanceL>15 and distanceL<1000):
-                  if(distanceR>15 and distanceR<1000):
+            if(distanceL>10 and distanceL<1000):
+                  if(distanceR>10 and distanceR<1000):
                         reverse()
-                        time.sleep(0.05)
+                        time.sleep(0.00)
                         rightturn()
                         time.sleep(0.05)
                         direction = "right"
-                  if(distanceR<15):
+                  if(distanceR<10):
                         reverse()
                         time.sleep(0.05)
                         leftturn()
                         time.sleep(0.05)
                         direction = "left"
       if(distanceC>15 and distanceC<1000):
-            if(distanceL<15):
-                  if(distanceR<15):
-                        stop()
-                        direction = "stop"
-                  if(distanceR>15 and distanceR<1000):
+            if(distanceL<10):
+                  if(distanceR<10):
+                        reverse()
+                        direction = "reverse"
+                  if(distanceR>10 and distanceR<1000):
                         reverse()
                         time.sleep(0.05)
                         rightturn()
                         time.sleep(0.05)
                         direction = "right"
-            if(distanceL>15 and distanceL<1000):
-                  if(distanceR>15 and distanceR<1000):
+            if(distanceL>10 and distanceL<1000):
+                  if(distanceR>10 and distanceR<1000):
                         forward()
                         direction = "forward"
-                  if(distanceR<15):
+                  if(distanceR<10):
                         reverse()
                         time.sleep(0.05)
                         leftturn()
                         time.sleep(0.05)
                         direction = "left"
-      if(distanceeC>1000):
-            reverse()
-            time.sleep(0.05)
-            direction = "reverse"
-      if(distanceeL>1000):
-            reverse()
-            time.sleep(0.05)
-            direction = "reverse"
-      if(distanceeR>1000):
-            reverse()
-            time.sleep(0.05)
-            direction = "reverse"
-     
+      
+      if(distanceC>1000):
+          if(distanceL>1000):
+              if(distanceR>1000):
+                  stop()
+                  direction = "stop"
+              if(distanceR<1000):
+                  reverse()
+                  time.sleep(0.05)
+                  rightturn()
+                  time.sleep(0.05)
+                  direction = "right"
+          if(distanceL<1000):
+              if(distanceR>1000):
+                  reverse()
+                  time.sleep(0.05)
+                  leftturn()
+                  time.sleep(0.05)
+                  direction = "left"
+              if(distanceR<1000):
+                  reverse()
+                  time.sleep(0.05)
+                  rightturn()
+                  time.sleep(0.05)
+                  direction = "right"
+      if(distanceC<1000):
+          if(distanceL>1000):
+              if(distanceR>1000):
+                  reverse()
+                  time.sleep(0.05)
+              if(distanceR<1000):
+                  reverse()
+                  time.sleep(0.05)
+                  rightturn()
+                  time.sleep(0.05)
+                  direction = "right" 
+          if(distanceL<1000):
+              if(distanceR>1000):
+                  reverse()
+                  time.sleep(0.05)
+                  leftturn()
+                  time.sleep(0.05)
+                  direction = "left"
+      
+      print(direction)
       cv2.imshow("draw",frame)    
       rawCapture.truncate(0)  # clear the stream in preparation for the next frame
          
@@ -290,3 +324,7 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
             break
 
 GPIO.cleanup() #free all the GPIO pins
+
+
+      
+
