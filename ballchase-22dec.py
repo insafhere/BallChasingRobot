@@ -137,7 +137,7 @@ def segment_colour(frame):    #returns only the red colors in the frame
     hsv_roi =  cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
     mask_1 = cv2.inRange(hsv_roi, np.array([24, 43,222]), np.array([43,95,255]))
     ycr_roi=cv2.cvtColor(frame,cv2.COLOR_BGR2YCrCb)
-    mask_2=cv2.inRange(ycr_roi, np.array([108,112,54), np.array([255,166,111]))
+    mask_2=cv2.inRange(ycr_roi, np.array([108,112,54]), np.array([255,166,111]))
 
     mask = mask_1 | mask_2
     kern_dilate = np.ones((8,8),np.uint8)
