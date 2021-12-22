@@ -193,7 +193,7 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
       distanceC = sonar(GPIO_TRIGGER2,GPIO_ECHO2)
       distanceR = sonar(GPIO_TRIGGER3,GPIO_ECHO3)
       distanceL = sonar(GPIO_TRIGGER1,GPIO_ECHO1)
-      wxhArea = 
+      wxhArea = w*h
       print("W X H : %.1f" % wxhArea)
       
       if (w*h) <30:
@@ -222,8 +222,7 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
             else:
                   forward()
                   time.sleep(0.05)
-                  stop()
-                  time.sleep(0.0125)
+                 
                   
       elif(found==1):
             if(distanceL<10 or distanceC<10 or distanceR<10):
@@ -242,8 +241,7 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
                   #otherwise it move forward
                   forward()
                   time.sleep(0.05)
-                  stop()
-                  time.sleep(0.0125)
+                  
 
       cv2.imshow("frame",frame)    
       rawCapture.truncate(0)  # clear the stream in preparation for the next frame
