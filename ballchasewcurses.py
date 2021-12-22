@@ -4,6 +4,7 @@ from picamera import PiCamera
 import RPi.GPIO as GPIO
 import time
 import cv2
+import curses
 
 import numpy as np
 
@@ -176,15 +177,6 @@ rawCapture = PiRGBArray(camera, size=(160, 120))
 # allow the camera to warmup
 time.sleep(0.001)
 
-from picamera import PiCamera
-import curses
-from gpiozero import Robot
-
-robot = Robot(left = (27, 17), right = (22,23))
-camera = PiCamera()
-camera.resolution = (640, 480)
-camera.rotation = 180
-camera.start_preview()
 
 actions = {
     curses.KEY_UP:    forward(),
