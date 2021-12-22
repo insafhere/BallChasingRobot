@@ -221,60 +221,52 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
             GPIO.output(LED_PIN,GPIO.HIGH)
 
       GPIO.output(LED_PIN,GPIO.LOW)          
-      if(found==0):
-            if(distanceL<20 or distanceC<10 or distanceR<20):
-                  reverse()
-                  time.sleep(0.05)
-                  rightturn()
-                  time.sleep(0.0125)
-            else:
-                  forward()
-                  time.sleep(0.05)
-                 
-                  
-      elif(found==1):
-            if(distanceL<20 or distanceC<15 or distanceR<20):
-                  reverse()
-                  time.sleep(0.05)
-                  rightturn()
-                  time.sleep(0.0125)
-            else:
-                  if(centre_x<=-20 or centre_x>=20):
-                        if(centre_x<0):
-                              rightturn()
-                              time.sleep(0.025)
-                        elif(centre_x>0):
-                              leftturn()
-                              time.sleep(0.025)
-                  #otherwise it move forward
-                  forward()
-                  time.sleep(0.05)
-      
-      #curses initialize
-      curses.noecho()
-      curses.cbreak()
-      screen.keypad(True)
       
       char = screen.getch()
       if char == ord("k"): #press k to Start keyboard control
-            stop()
-            try:
-                  while True:
-                        char = screen.getch()
-                        if char == ord("q"):   #press q to Quit keyboard control
-                              break
-                        elif char == curses.KEY_UP:  #press UP to move forward
-                              forward()
-                        elif char == curses.KEY_DOWN:  #press DOWN to move backward
-                              reverse()
-                        elif char == curses.KEY_LEFT:  #press LEFT to move left
-                              leftturn()
-                        elif char == curses.KEY_RIGHT:  #press RIGHT to move right
-                              rightturn()
-                        elif char == ord("s"):   #press s to Stop robot
-                              stop()
-            finally:
-                  curses.nocbreak(); screen.keypad(0); curses.echo()
+            key = 1
+      if char == ord("a"):   #press q to Quit keyboard control
+            key = 0
+      
+      if key = 0:  #run autonomously
+            if(found==0):
+                  if(distanceL<20 or distanceC<10 or distanceR<20):
+                        reverse()
+                        time.sleep(0.05)
+                        rightturn()
+                        time.sleep(0.0125)
+                  else:
+                        forward()
+                        time.sleep(0.05)
+            elif(found==1):
+                  if(distanceL<20 or distanceC<15 or distanceR<20):
+                        reverse()
+                        time.sleep(0.05)
+                        rightturn()
+                        time.sleep(0.0125)
+                  else:
+                        if(centre_x<=-20 or centre_x>=20):
+                              if(centre_x<0):
+                                    rightturn()
+                                    time.sleep(0.025)
+                              elif(centre_x>0):
+                                    leftturn()
+                                    time.sleep(0.025)
+                        #otherwise it move forward
+                        forward()
+                        time.sleep(0.05)
+      
+      if key = 1:            
+            elif char == curses.KEY_UP:  #press UP to move forward
+                  forward()
+            elif char == curses.KEY_DOWN:  #press DOWN to move backward
+                  reverse()
+            elif char == curses.KEY_LEFT:  #press LEFT to move left
+                  leftturn()
+            elif char == curses.KEY_RIGHT:  #press RIGHT to move right
+                  rightturn()
+            elif char == ord("s"):   #press s to Stop robot
+                  stop()
 
       cv2.imshow("frame",frame)    
       rawCapture.truncate(0)  # clear the stream in preparation for the next frame
