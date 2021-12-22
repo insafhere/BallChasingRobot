@@ -182,7 +182,6 @@ screen = curses.initscr()
 curses.noecho()
 curses.cbreak()
 screen.keypad(True)
-cursesinit = 1
  
 # capture frames from the camera
 for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
