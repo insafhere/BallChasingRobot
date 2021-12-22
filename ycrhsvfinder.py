@@ -35,7 +35,7 @@ def find_blob(blob): #returns the robo green colored circle
       if len(contours) > 0:
             r = cv2.boundingRect(contours[cont_index])
       
-      print("r is : " , r, "largest contour is : " , largest_contour)
+      #print("r is : " , r, "largest contour is : " , largest_contour)
       return r,largest_contour
 
 while True:
@@ -44,6 +44,11 @@ while True:
 	_, frame2 = cap.read()
 	frame2=cv2.flip(frame2,-1)
 	
+	mask = segment_color(frame)
+	loct,area = find_blob(mask)
+	x,y,w,h = loct
+	print("Area is: ", area)
+	print("w: ", w, "  h: " , h, "    wxh : ", w*h)
 
 	#YCR
 	ycr = cv2.cvtColor(frame, cv2.COLOR_BGR2YCrCb)
