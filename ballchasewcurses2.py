@@ -202,77 +202,80 @@ def KeyboardControl():
                   break
 
 def Autonomous():
-      # capture frames from the camera
-      for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
-            #grab the raw NumPy array representing the image, then initialize the timestamp and occupied/unoccupied text
-            frame = image.array
-            frame=cv2.flip(frame,-1)
-            global centre_x
-            global centre_y
-            centre_x=0.
-            centre_y=0.
-            mask=segment_colour(frame) 
-            loct,area=find_blob(mask)
-            x,y,w,h=loct
+      try:
+            # capture frames from the camera
+            for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
+                  #grab the raw NumPy array representing the image, then initialize the timestamp and occupied/unoccupied text
+                  frame = image.array
+                  frame=cv2.flip(frame,-1)
+                  global centre_x
+                  global centre_y
+                  centre_x=0.
+                  centre_y=0.
+                  mask=segment_colour(frame) 
+                  loct,area=find_blob(mask)
+                  x,y,w,h=loct
 
-            #distance coming from front ultrasonic sensor
-            distanceC = sonar(GPIO_TRIGGER2,GPIO_ECHO2)
-            distanceR = sonar(GPIO_TRIGGER3,GPIO_ECHO3)
-            distanceL = sonar(GPIO_TRIGGER1,GPIO_ECHO1)
-            wxhArea = w*h
+                  #distance coming from front ultrasonic sensor
+                  distanceC = sonar(GPIO_TRIGGER2,GPIO_ECHO2)
+                  distanceR = sonar(GPIO_TRIGGER3,GPIO_ECHO3)
+                  distanceL = sonar(GPIO_TRIGGER1,GPIO_ECHO1)
+                  wxhArea = w*h
 
-            print("W X H : %.1f" % wxhArea)
-            print("Area : ", area)
+                  print("W X H : %.1f" % wxhArea)
+                  print("Area : ", area)
 
-            if ((area<30) or (area >1000) ):
-                  found=0
+                  if ((area<30) or (area >1000) ):
+                        found=0
 
-            else:
-                  found=1
-                  simg2 = cv2.rectangle(frame, (x,y), (x+w,y+h), 255,2)
-                  centre_x=x+((w)/2)
-                  centre_y=y+((h)/2)
-                  cv2.circle(frame,(int(centre_x),int(centre_y)),3,(0,110,255),-1)
-                  centre_x = 80 - centre_x
-                  centre_y = 60 - centre_y
-                  print(centre_x,centre_y)
-                  print("Area : %.1f" % area)
-                  GPIO.output(LED_PIN,GPIO.HIGH)
-
-            GPIO.output(LED_PIN,GPIO.LOW)          
-
-            if(found==0):
-                  if(distanceL<20 or distanceC<10 or distanceR<20):
-                        reverse()
-                        time.sleep(0.05)
-                        rightturn()
-                        time.sleep(0.0125)
                   else:
-                        forward()
-                        time.sleep(0.05)
-            elif(found==1):
-                  if(distanceL<20 or distanceC<15 or distanceR<20):
-                        reverse()
-                        time.sleep(0.05)
-                        rightturn()
-                        time.sleep(0.0125)
-                  else:
-                        if(centre_x<=-20 or centre_x>=20):
-                              if(centre_x<0):
-                                    rightturn()
-                                    time.sleep(0.025)
-                              elif(centre_x>0):
-                                    leftturn()
-                                    time.sleep(0.025)
-                        #otherwise it move forward
-                        forward()
-                        time.sleep(0.05)
+                        found=1
+                        simg2 = cv2.rectangle(frame, (x,y), (x+w,y+h), 255,2)
+                        centre_x=x+((w)/2)
+                        centre_y=y+((h)/2)
+                        cv2.circle(frame,(int(centre_x),int(centre_y)),3,(0,110,255),-1)
+                        centre_x = 80 - centre_x
+                        centre_y = 60 - centre_y
+                        print(centre_x,centre_y)
+                        print("Area : %.1f" % area)
+                        GPIO.output(LED_PIN,GPIO.HIGH)
 
-            #cv2.imshow("frame",frame)    
-            rawCapture.truncate(0)  # clear the stream in preparation for the next frame
+                  GPIO.output(LED_PIN,GPIO.LOW)          
 
-            if(cv2.waitKey(1) & 0xff == ord('q')):
-                  break
+                  if(found==0):
+                        if(distanceL<20 or distanceC<10 or distanceR<20):
+                              reverse()
+                              time.sleep(0.05)
+                              rightturn()
+                              time.sleep(0.0125)
+                        else:
+                              forward()
+                              time.sleep(0.05)
+                  elif(found==1):
+                        if(distanceL<20 or distanceC<15 or distanceR<20):
+                              reverse()
+                              time.sleep(0.05)
+                              rightturn()
+                              time.sleep(0.0125)
+                        else:
+                              if(centre_x<=-20 or centre_x>=20):
+                                    if(centre_x<0):
+                                          rightturn()
+                                          time.sleep(0.025)
+                                    elif(centre_x>0):
+                                          leftturn()
+                                          time.sleep(0.025)
+                              #otherwise it move forward
+                              forward()
+                              time.sleep(0.05)
+
+                  #cv2.imshow("frame",frame)    
+                  rawCapture.truncate(0)  # clear the stream in preparation for the next frame
+
+                  if(cv2.waitKey(1) & 0xff == ord('q')):
+                        break
+      except KeybooardInterrupt:
+            pass      
             
 while True:
       KeyboardControl()
