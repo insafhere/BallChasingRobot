@@ -145,7 +145,7 @@ def segment_colour(frame):    #returns only the red colors in the frame
     kern_erode  = np.ones((3,3),np.uint8)
     mask= cv2.erode(mask,kern_erode)      #Eroding
     mask=cv2.dilate(mask,kern_dilate)     #Dilating
-    cv2.imshow('mask',mask)
+    #cv2.imshow('mask',mask)
     return mask
 
 def find_blob(blob): #returns the red colored circle
@@ -271,7 +271,7 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
             elif char == ord("s"):   #press s to Stop robot
                   stop()
 
-      cv2.imshow("frame",frame)    
+      #cv2.imshow("frame",frame)    
       rawCapture.truncate(0)  # clear the stream in preparation for the next frame
          
       if(cv2.waitKey(1) & 0xff == ord('q')):
