@@ -232,6 +232,7 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
             key = 0
       
       if(key == 0):  #run autonomously
+            screen.getch() = ord("")
             if char == ord(""):
                   if(found==0):
                         if(distanceL<20 or distanceC<10 or distanceR<20):
