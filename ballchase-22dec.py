@@ -194,9 +194,11 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
       distanceR = sonar(GPIO_TRIGGER3,GPIO_ECHO3)
       distanceL = sonar(GPIO_TRIGGER1,GPIO_ECHO1)
       wxhArea = w*h
-      print("W X H : %.1f" % wxhArea)
       
-      if (w*h) <30:
+      print("W X H : %.1f" % wxhArea)
+      print("Area : ", area)
+      
+      if (((w*h) <30) or (w*h) >100) ):
             found=0
             
       else:
@@ -210,7 +212,6 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
             print(centre_x,centre_y)
             print("Area : %.1f" % area)
             GPIO.output(LED_PIN,GPIO.HIGH)
-      initial=80
 
       GPIO.output(LED_PIN,GPIO.LOW)          
       if(found==0):
