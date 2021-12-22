@@ -231,7 +231,7 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
       if char == ord("a"):   #press q to Quit keyboard control
             key = 0
       
-      if key = 0:  #run autonomously
+      if(key == 0):  #run autonomously
             if(found==0):
                   if(distanceL<20 or distanceC<10 or distanceR<20):
                         reverse()
@@ -259,7 +259,7 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
                         forward()
                         time.sleep(0.05)
       
-      if key = 1:            
+      if(key == 1):            
             elif char == curses.KEY_UP:  #press UP to move forward
                   forward()
             elif char == curses.KEY_DOWN:  #press DOWN to move backward
