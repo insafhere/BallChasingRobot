@@ -177,17 +177,33 @@ rawCapture = PiRGBArray(camera, size=(160, 120))
 # allow the camera to warmup
 time.sleep(0.001)
 
-#curses
-screen = curses.initscr()
-curses.noecho()
-curses.cbreak()
-screen.keypad(True)
+def KeyboardControl():
+      stop()
+      #curses
+      screen = curses.initscr()
+      curses.noecho()
+      curses.cbreak()
+      screen.keypad(True)
+      while True:
+            char = screen.getch()
+            if char == curses.KEY_UP:  #press UP to move forward
+                  forward()
+            elif char == curses.KEY_DOWN:  #press DOWN to move backward
+                  reverse()
+            elif char == curses.KEY_LEFT:  #press LEFT to move left
+                  leftturn()
+            elif char == curses.KEY_RIGHT:  #press RIGHT to move right
+                  rightturn()
+            elif char == ord("s"):   #press s to Stop robot
+                  stop()
+            elif char == ord("q"):
+                  curses.nocbreak(); screen.keypad(0); curses.echo()
+                  curses.endwin()
+                  break
 
-key=0
-
-
-# capture frames from the camera
-for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
+def Autonomous():
+      # capture frames from the camera
+      for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
       #grab the raw NumPy array representing the image, then initialize the timestamp and occupied/unoccupied text
       frame = image.array
       frame=cv2.flip(frame,-1)
@@ -198,19 +214,19 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
       mask=segment_colour(frame) 
       loct,area=find_blob(mask)
       x,y,w,h=loct
-     
+
       #distance coming from front ultrasonic sensor
       distanceC = sonar(GPIO_TRIGGER2,GPIO_ECHO2)
       distanceR = sonar(GPIO_TRIGGER3,GPIO_ECHO3)
       distanceL = sonar(GPIO_TRIGGER1,GPIO_ECHO1)
       wxhArea = w*h
-      
+
       print("W X H : %.1f" % wxhArea)
       print("Area : ", area)
-      
+
       if ((area<30) or (area >1000) ):
             found=0
-            
+
       else:
             found=1
             simg2 = cv2.rectangle(frame, (x,y), (x+w,y+h), 255,2)
@@ -224,60 +240,42 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
             GPIO.output(LED_PIN,GPIO.HIGH)
 
       GPIO.output(LED_PIN,GPIO.LOW)          
-      
-      char = screen.getch()
-      if char == ord("k"): #press k to Start keyboard control
-            key = 1
-      if char == ord("a"):   #press q to Quit keyboard control
-            key = 0
-      
-      if(key == 0):  #run autonomously
-            screen.getch() = ord("")
-            if char == ord(""):
-                  if(found==0):
-                        if(distanceL<20 or distanceC<10 or distanceR<20):
-                              reverse()
-                              time.sleep(0.05)
-                              rightturn()
-                              time.sleep(0.0125)
-                        else:
-                              forward()
-                              time.sleep(0.05)
-                  elif(found==1):
-                        if(distanceL<20 or distanceC<15 or distanceR<20):
-                              reverse()
-                              time.sleep(0.05)
-                              rightturn()
-                              time.sleep(0.0125)
-                        else:
-                              if(centre_x<=-20 or centre_x>=20):
-                                    if(centre_x<0):
-                                          rightturn()
-                                          time.sleep(0.025)
-                                    elif(centre_x>0):
-                                          leftturn()
-                                          time.sleep(0.025)
-                              #otherwise it move forward
-                              forward()
-                              time.sleep(0.05)
-      
-      if(key == 1):  
-            stop()
-            if char == curses.KEY_UP:  #press UP to move forward
-                  forward()
-            elif char == curses.KEY_DOWN:  #press DOWN to move backward
+
+      if(found==0):
+            if(distanceL<20 or distanceC<10 or distanceR<20):
                   reverse()
-            elif char == curses.KEY_LEFT:  #press LEFT to move left
-                  leftturn()
-            elif char == curses.KEY_RIGHT:  #press RIGHT to move right
+                  time.sleep(0.05)
                   rightturn()
-            elif char == ord("s"):   #press s to Stop robot
-                  stop()
+                  time.sleep(0.0125)
+            else:
+                  forward()
+                  time.sleep(0.05)
+      elif(found==1):
+            if(distanceL<20 or distanceC<15 or distanceR<20):
+                  reverse()
+                  time.sleep(0.05)
+                  rightturn()
+                  time.sleep(0.0125)
+            else:
+                  if(centre_x<=-20 or centre_x>=20):
+                        if(centre_x<0):
+                              rightturn()
+                              time.sleep(0.025)
+                        elif(centre_x>0):
+                              leftturn()
+                              time.sleep(0.025)
+                  #otherwise it move forward
+                  forward()
+                  time.sleep(0.05)
 
       #cv2.imshow("frame",frame)    
       rawCapture.truncate(0)  # clear the stream in preparation for the next frame
-         
+
       if(cv2.waitKey(1) & 0xff == ord('q')):
             break
+            
+while True:
+      KeyboardControl()
+      Autonomous()
 
 GPIO.cleanup() #free all the GPIO pins
