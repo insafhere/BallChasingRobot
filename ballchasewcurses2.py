@@ -223,7 +223,7 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
       GPIO.output(LED_PIN,GPIO.LOW)          
       if(found==0):
-            if(distanceL<15 or distanceC<10 or distanceR<15):
+            if(distanceL<20 or distanceC<10 or distanceR<20):
                   reverse()
                   time.sleep(0.05)
                   rightturn()
@@ -234,7 +234,7 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
                  
                   
       elif(found==1):
-            if(distanceL<15 or distanceC<15 or distanceR<15):
+            if(distanceL<20 or distanceC<15 or distanceR<20):
                   reverse()
                   time.sleep(0.05)
                   rightturn()
@@ -252,7 +252,6 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
                   time.sleep(0.05)
       
       #curses initialize
-      screen = curses.initscr()
       curses.noecho()
       curses.cbreak()
       screen.keypad(True)
