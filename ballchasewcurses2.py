@@ -167,14 +167,6 @@ def find_blob(blob): #returns the red colored circle
        
     return r,largest_contour
 
-
-
-
-k = cv2.waitKey(1) & 0xFF
-    # press 'q' to exit
-    if k == ord('q'):
-        break
-
 def KeyboardControl():
       stop()
       #curses
