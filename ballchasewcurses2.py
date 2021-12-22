@@ -177,11 +177,7 @@ rawCapture = PiRGBArray(camera, size=(160, 120))
 # allow the camera to warmup
 time.sleep(0.001)
 
-#curses
-screen = curses.initscr()
-curses.noecho()
-curses.cbreak()
-screen.keypad(True)
+
  
 # capture frames from the camera
 for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
@@ -249,6 +245,12 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
                   #otherwise it move forward
                   forward()
                   time.sleep(0.05)
+      
+      #curses
+      screen = curses.initscr()
+      curses.noecho()
+      curses.cbreak()
+      screen.keypad(True)
       
       char = screen.getch()
       if char == ord("k"):
