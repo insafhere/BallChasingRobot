@@ -232,32 +232,33 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
             key = 0
       
       if(key == 0):  #run autonomously
-            if(found==0):
-                  if(distanceL<20 or distanceC<10 or distanceR<20):
-                        reverse()
-                        time.sleep(0.05)
-                        rightturn()
-                        time.sleep(0.0125)
-                  else:
-                        forward()
-                        time.sleep(0.05)
-            elif(found==1):
-                  if(distanceL<20 or distanceC<15 or distanceR<20):
-                        reverse()
-                        time.sleep(0.05)
-                        rightturn()
-                        time.sleep(0.0125)
-                  else:
-                        if(centre_x<=-20 or centre_x>=20):
-                              if(centre_x<0):
-                                    rightturn()
-                                    time.sleep(0.025)
-                              elif(centre_x>0):
-                                    leftturn()
-                                    time.sleep(0.025)
-                        #otherwise it move forward
-                        forward()
-                        time.sleep(0.05)
+            if char == ord(""):
+                  if(found==0):
+                        if(distanceL<20 or distanceC<10 or distanceR<20):
+                              reverse()
+                              time.sleep(0.05)
+                              rightturn()
+                              time.sleep(0.0125)
+                        else:
+                              forward()
+                              time.sleep(0.05)
+                  elif(found==1):
+                        if(distanceL<20 or distanceC<15 or distanceR<20):
+                              reverse()
+                              time.sleep(0.05)
+                              rightturn()
+                              time.sleep(0.0125)
+                        else:
+                              if(centre_x<=-20 or centre_x>=20):
+                                    if(centre_x<0):
+                                          rightturn()
+                                          time.sleep(0.025)
+                                    elif(centre_x>0):
+                                          leftturn()
+                                          time.sleep(0.025)
+                              #otherwise it move forward
+                              forward()
+                              time.sleep(0.05)
       
       if(key == 1):  
             stop()
