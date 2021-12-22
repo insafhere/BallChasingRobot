@@ -275,6 +275,8 @@ def Autonomous():
                   if(cv2.waitKey(1) & 0xff == ord('q')):
                         break
       except KeyboardInterrupt:
+            camera.close()
+            camera.stop_preview()
             pass      
             
 while True:  # Can only run Keyboard, Autonmous followed by Keyboard again 
