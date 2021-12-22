@@ -251,7 +251,7 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
                   time.sleep(0.05)
       
       char = screen.getch()
-      if char == ord("e"):
+      if char == ord("k"):
         stop()
         try:
           while True:
