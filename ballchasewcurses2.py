@@ -276,7 +276,6 @@ def Autonomous():
                         break
       except KeyboardInterrupt:
             camera.close()
-            camera.stop_preview()
             pass      
             
 while True:  # Can only run Keyboard, Autonmous followed by Keyboard again 
