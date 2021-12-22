@@ -10,33 +10,52 @@ import numpy as np
 #hardware work
 GPIO.setmode(GPIO.BCM)
 
+GPIO_TRIGGER1 = 27      #Left ultrasonic sensor
+GPIO_ECHO1 = 22
+
 GPIO_TRIGGER2 = 19      #Front ultrasonic sensor
 GPIO_ECHO2 = 26
+
+GPIO_TRIGGER3 = 5      #Right ultrasonic sensor
+GPIO_ECHO3 = 6
 
 MOTOR1B=25  #Left Motor
 MOTOR1E=8
 
 MOTOR2B=23  #Right Motor
 MOTOR2E=15
+
 en = 24
 en1 = 14
+
 LED_PIN=13  #If it finds the ball, then it will light up the led
 
 # Set pins as output and input
 
+GPIO.setup(GPIO_TRIGGER1,GPIO.OUT)  # Trigger
+GPIO.setup(GPIO_ECHO1,GPIO.IN)   
+
 GPIO.setup(GPIO_TRIGGER2,GPIO.OUT)  # Trigger
 GPIO.setup(GPIO_ECHO2,GPIO.IN)
 
+GPIO.setup(GPIO_TRIGGER3,GPIO.OUT)  # Trigger
+GPIO.setup(GPIO_ECHO3,GPIO.IN)
+
 GPIO.setup(LED_PIN,GPIO.OUT)
+
 GPIO.setup(en ,GPIO.OUT)
 GPIO.setup(en1 ,GPIO.OUT)
+
 p=GPIO.PWM(en,1000)
 p1=GPIO.PWM(en1,1000)
-p.start(100)
+
+p.start(100) #duty cycle %
 p1.start(100)
 
 # Set trigger to False (Low)
+GPIO.output(GPIO_TRIGGER1, False)
 GPIO.output(GPIO_TRIGGER2, False)
+GPIO.output(GPIO_TRIGGER3, False)
 
 # Allow module to settle
 def sonar(GPIO_TRIGGER,GPIO_ECHO):
@@ -172,9 +191,14 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
      
       #distance coming from front ultrasonic sensor
       distanceC = sonar(GPIO_TRIGGER2,GPIO_ECHO2)
-             
+      distanceR = sonar(GPIO_TRIGGER3,GPIO_ECHO3)
+      distanceL = sonar(GPIO_TRIGGER1,GPIO_ECHO1)
+      wxhArea = 
+      print("W X H : %.1f" % wxhArea)
+      
       if (w*h) < 10:
             found=0
+            
       else:
             found=1
             simg2 = cv2.rectangle(frame, (x,y), (x+w,y+h), 255,2)
@@ -190,35 +214,25 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
       GPIO.output(LED_PIN,GPIO.LOW)          
       if(found==0):
-            rightturn()
-            time.sleep(0.05)
-            stop()
-            time.sleep(0.0125)
-
-     
+            if(distanceL<10 or distanceC<10 or distanceR<10)
+                  reverse()
+                  time.sleep(0.05)
+                  rightturn()
+                  time.sleep(0.0125)
+            else:
+                  forward()
+                  time.sleep(0.05)
+                  stop()
+                  time.sleep(0.0125)
+                  
       elif(found==1):
-            if(area<initial):  #if area is small than 80
-                  if(distanceC<10):
+            if(area>=initial):  #if area is small than 80
+                  if(distanceL<10 or distanceC<10 or distanceR<10 ):
+                        reverse()
+                        time.sleep(0.05)
                         rightturn()
-                        time.sleep(0.00625)
-                        stop()
-                        time.sleep(0.0125)
-                        forward()
-                        time.sleep(0.00625)
-                        stop()
-                        time.sleep(0.0125)
-                        #while found==0:
-                        leftturn()
-                        time.sleep(0.00625)
-                        stop()
                         time.sleep(0.0125)
                   else:
-                        #otherwise it move forward
-                        forward()
-                        time.sleep(0.00625)
-            elif(area>=initial):  #  if area is bigger than 80
-                  if(distanceC>10):
-                        #it brings coordinates of ball to center of camera's imaginary axis.
                         if(centre_x<=-20 or centre_x>=20):
                               if(centre_x<0):
                                     rightturn()
@@ -226,11 +240,12 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
                               elif(centre_x>0):
                                     leftturn()
                                     time.sleep(0.025)
+                        #otherwise it move forward
                         forward()
-                        time.sleep(0.01)
-                  else:
+                        time.sleep(0.05)
                         stop()
-                        time.sleep(0.01)
+                        time.sleep(0.0125)
+
       cv2.imshow("frame",frame)    
       rawCapture.truncate(0)  # clear the stream in preparation for the next frame
          
