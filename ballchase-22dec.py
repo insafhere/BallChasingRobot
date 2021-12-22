@@ -198,7 +198,7 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
       print("W X H : %.1f" % wxhArea)
       print("Area : ", area)
       
-      if (((w*h) <30) or (w*h) >100) ):
+      if (((w*h) <30) or ((w*h) >100) ):
             found=0
             
       else:
