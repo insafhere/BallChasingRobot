@@ -177,7 +177,12 @@ rawCapture = PiRGBArray(camera, size=(160, 120))
 # allow the camera to warmup
 time.sleep(0.001)
 
-
+#curses
+screen = curses.initscr()
+curses.noecho()
+curses.cbreak()
+screen.keypad(True)
+cursesinit = 1
  
 # capture frames from the camera
 for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
@@ -246,34 +251,26 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
                   forward()
                   time.sleep(0.05)
       
-      #curses
-      screen = curses.initscr()
-      curses.noecho()
-      curses.cbreak()
-      screen.keypad(True)
-      
       char = screen.getch()
-      if char == ord("k"):
+      if char == ord("k"): #press k to Start keyboard control
         stop()
         try:
-          while True:
-            char = screen.getch()
-            if char == ord("q"):
-              break
-            elif char == curses.KEY_UP:
-              forward()
-            elif char == curses.KEY_DOWN:
-              reverse()
-            elif char == curses.KEY_LEFT:
-              leftturn()
-            elif char == curses.KEY_RIGHT:
-              rightturn()
-            elif char == ord("s"):
-                  stop()
-        finally:
-          curses.nocbreak(); screen.keypad
-          curses.endwin()
-          GPIO.cleanup
+            while True:
+                  char = screen.getch()
+                  if char == ord("q"):   #press q to Quit keyboard control
+                        break
+                  elif char == curses.KEY_UP:  #press UP to move forward
+                        forward()
+                  elif char == curses.KEY_DOWN:  #press DOWN to move backward
+                        reverse()
+                  elif char == curses.KEY_LEFT:  #press LEFT to move left
+                        leftturn()
+                  elif char == curses.KEY_RIGHT:  #press RIGHT to move right
+                        rightturn()
+                  elif char == ord("s"):   #press s to Stop robot
+                        stop()
+      finally:
+            endcurses = 1
 
       cv2.imshow("frame",frame)    
       rawCapture.truncate(0)  # clear the stream in preparation for the next frame
