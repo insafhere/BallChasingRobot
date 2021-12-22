@@ -251,7 +251,7 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
                   time.sleep(0.05)
       
       char = screen.getch()
-      if char == ord("s"):
+      if char == ord("e"):
         stop()
         try:
           while True:
@@ -266,6 +266,8 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
               leftturn()
             elif char == curses.KEY_RIGHT:
               rightturn()
+            elif char == ord("s"):
+                  stop()
         finally:
           curses.nocbreak(); screen.keypad
           curses.endwin()
