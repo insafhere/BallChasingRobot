@@ -277,8 +277,8 @@ def Autonomous():
       except KeyboardInterrupt:
             pass      
             
-while True:
-      KeyboardControl()
-      Autonomous()
+while True:  # Can only run Keyboard, Autonmous followed by Keyboard again 
+      KeyboardControl() #press q to break
+      Autonomous()  #press Ctrl + c to keyboard interrupt break
 
 GPIO.cleanup() #free all the GPIO pins
