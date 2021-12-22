@@ -167,15 +167,13 @@ def find_blob(blob): #returns the red colored circle
        
     return r,largest_contour
 
-#CAMERA CAPTURE
-#initialize the camera and grab a reference to the raw camera capture
-camera = PiCamera()
-camera.resolution = (160, 120)
-camera.framerate = 16
-rawCapture = PiRGBArray(camera, size=(160, 120))
- 
-# allow the camera to warmup
-time.sleep(0.001)
+
+
+
+k = cv2.waitKey(1) & 0xFF
+    # press 'q' to exit
+    if k == ord('q'):
+        break
 
 def KeyboardControl():
       stop()
@@ -202,6 +200,16 @@ def KeyboardControl():
                   break
 
 def Autonomous():
+      
+      #CAMERA CAPTURE
+      #initialize the camera and grab a reference to the raw camera capture
+      camera = PiCamera()
+      camera.resolution = (160, 120)
+      camera.framerate = 16
+      rawCapture = PiRGBArray(camera, size=(160, 120))
+      # allow the camera to warmup
+      time.sleep(0.001)
+      
       try:
             # capture frames from the camera
             for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
@@ -274,7 +282,7 @@ def Autonomous():
 
                   if(cv2.waitKey(1) & 0xff == ord('q')):
                         break
-      except KeybooardInterrupt:
+      except KeyboardInterrupt:
             pass      
             
 while True:
