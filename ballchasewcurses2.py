@@ -260,7 +260,7 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
                         time.sleep(0.05)
       
       if(key == 1):            
-            elif char == curses.KEY_UP:  #press UP to move forward
+            if char == curses.KEY_UP:  #press UP to move forward
                   forward()
             elif char == curses.KEY_DOWN:  #press DOWN to move backward
                   reverse()
