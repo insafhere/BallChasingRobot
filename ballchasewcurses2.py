@@ -251,6 +251,12 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
                   forward()
                   time.sleep(0.05)
       
+      #curses initialize
+      screen = curses.initscr()
+      curses.noecho()
+      curses.cbreak()
+      screen.keypad(True)
+      
       char = screen.getch()
       if char == ord("k"): #press k to Start keyboard control
             stop()
@@ -270,7 +276,8 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
                         elif char == ord("s"):   #press s to Stop robot
                               stop()
             finally:
-                  endcurses = 1
+                  curses.nocbreak(); screen.keypad(0); curses.echo()
+                  curses.endwin()
 
       cv2.imshow("frame",frame)    
       rawCapture.truncate(0)  # clear the stream in preparation for the next frame
