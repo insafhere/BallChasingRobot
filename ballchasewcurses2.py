@@ -275,7 +275,6 @@ for image in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
                               stop()
             finally:
                   curses.nocbreak(); screen.keypad(0); curses.echo()
-                  curses.endwin()
 
       cv2.imshow("frame",frame)    
       rawCapture.truncate(0)  # clear the stream in preparation for the next frame
