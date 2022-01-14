@@ -247,7 +247,7 @@ def Autonomous():
                               reverse()
                               time.sleep(0.05)
                               rightturn()
-                              time.sleep(0.0125)
+                              time.sleep(0.02)
                         else:
                               forward()
                               time.sleep(0.05)
@@ -256,7 +256,7 @@ def Autonomous():
                               reverse()
                               time.sleep(0.05)
                               rightturn()
-                              time.sleep(0.0125)
+                              time.sleep(0.02)
                         else:
                               if(centre_x<=-20 or centre_x>=20):
                                     if(centre_x<0):
